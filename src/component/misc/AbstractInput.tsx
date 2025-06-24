@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FormFeedback, FormText, Label } from "reactstrap";
-import { InputType } from "reactstrap/lib/Input";
 import classNames from "classnames";
 import HelpIcon from "./HelpIcon";
 import ValidationResult, {
@@ -9,6 +8,8 @@ import ValidationResult, {
 } from "../../model/form/ValidationResult";
 import Utils from "../../util/Utils";
 import InputValidationMessage from "./validation/InputValidationMessage";
+
+type InputType = React.HTMLInputTypeAttribute;
 
 export interface AbstractInputProps {
   name?: string;

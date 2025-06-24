@@ -1,13 +1,7 @@
 import * as React from "react";
 import { injectIntl } from "react-intl";
 import withI18n, { HasI18n } from "../../hoc/withI18n";
-import {
-  Button,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-} from "reactstrap";
+import { Button, Input, InputGroup, InputGroupText } from "reactstrap";
 import SearchResult from "../../../model/search/SearchResult";
 import { connect } from "react-redux";
 import { updateSearchFilter } from "../../../action/SearchActions";
@@ -144,7 +138,7 @@ export class NavbarSearch extends React.Component<
     const { i18n, navbar } = this.props;
 
     const searchIcon = (
-      <InputGroupAddon
+      <InputGroupText
         addonType="prepend"
         id="search-icon"
         title={i18n("main.search.tooltip")}
@@ -154,24 +148,20 @@ export class NavbarSearch extends React.Component<
         <InputGroupText>
           <span className="fas fa-search" />
         </InputGroupText>
-      </InputGroupAddon>
+      </InputGroupText>
     );
 
     const clearIcon = (
-      <InputGroupAddon
-        addonType="append"
+      <Button
         id="search-reset"
         onClick={this.resetSearch}
         className="float-right"
+        title={this.props.i18n("search.reset")}
+        color="outline-dark"
+        style={{ zIndex: 5 }}
       >
-        <Button
-          title={this.props.i18n("search.reset")}
-          color="outline-dark"
-          style={{ zIndex: 5 }}
-        >
-          <FaTimes style={{ marginBottom: 4 }} />
-        </Button>
-      </InputGroupAddon>
+        <FaTimes style={{ marginBottom: 4 }} />
+      </Button>
     );
 
     return (

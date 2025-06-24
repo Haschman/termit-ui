@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, ButtonToolbar, Container, Jumbotron } from "reactstrap";
+import { Button, ButtonToolbar, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 import Routes from "../../util/Routes";
 import "./Dashboard.scss";
@@ -13,7 +13,7 @@ import IfInternalAuth from "../misc/oidc/IfInternalAuth";
 const Dashboard: React.FC = () => {
   const { i18n } = useI18n();
   return (
-    <Jumbotron fluid={true}>
+    <div className="bg-light py-sm-5 mb-4 py-3">
       <WindowTitle title={Constants.APP_NAME} appendAppName={false} />
       <Container fluid={true}>
         <h1>{i18n("public.dashboard.title")}</h1>
@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
           </Link>
         </ButtonToolbar>
       </Container>
-    </Jumbotron>
+    </div>
   );
 };
 

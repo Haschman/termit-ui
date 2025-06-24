@@ -1,14 +1,7 @@
 import * as React from "react";
 import { injectIntl } from "react-intl";
 import withI18n, { HasI18n } from "../hoc/withI18n";
-import {
-  Button,
-  FormFeedback,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  Label,
-} from "reactstrap";
+import { Button, FormFeedback, Input, InputGroup, Label } from "reactstrap";
 import { GoPlus } from "react-icons/go";
 import { FaTrashAlt } from "react-icons/fa";
 import Utils from "../../util/Utils";
@@ -96,20 +89,18 @@ export class StringListEdit extends React.Component<
             onKeyPress={this.onKeyPress}
             invalid={this.props.invalid}
           />
-          <InputGroupAddon addonType="append">
-            <Button
-              key="add-string-submit"
-              color="primary"
-              size="sm"
-              onClick={this.onAdd}
-              className="string-list-add-button"
-              disabled={this.state.inputValue.trim().length === 0}
-              title={this.props.i18n("stringlistedit.button.add.tooltip")}
-            >
-              <GoPlus />
-              &nbsp;{this.props.i18n("stringlistedit.button.add")}
-            </Button>
-          </InputGroupAddon>
+          <Button
+            key="add-string-submit"
+            color="primary"
+            size="sm"
+            onClick={this.onAdd}
+            className="string-list-add-button"
+            disabled={this.state.inputValue.trim().length === 0}
+            title={this.props.i18n("stringlistedit.button.add.tooltip")}
+          >
+            <GoPlus />
+            &nbsp;{this.props.i18n("stringlistedit.button.add")}
+          </Button>
           {this.props.invalid && (
             <FormFeedback>{this.props.invalidMessage}</FormFeedback>
           )}

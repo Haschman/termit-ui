@@ -5,7 +5,7 @@ import withI18n, { HasI18n } from "./hoc/withI18n";
 import withLoading from "./hoc/withLoading";
 import { connect } from "react-redux";
 import TermItState from "../model/TermItState";
-import { Container, Jumbotron, Nav, Navbar } from "reactstrap";
+import { Container, Nav, Navbar } from "reactstrap";
 import User, { EMPTY_USER } from "../model/User";
 import Routes from "../util/Routes";
 import Footer from "./footer/Footer";
@@ -220,9 +220,9 @@ export class MainView extends React.Component<MainViewProps, MainViewState> {
   private renderPlaceholder() {
     return (
       <div id="loading-placeholder" className="wrapper center">
-        <Jumbotron>
+        <div className="px-sm-4 py-sm-5 rounded px-3 py-3">
           <h1>{this.props.i18n("message.welcome")}</h1>
-        </Jumbotron>
+        </div>
       </div>
     );
   }
