@@ -12,7 +12,6 @@ $enable-shadows: true !default;
 $enable-gradients: false !default;
 $enable-transitions: true !default;
 $enable-grid-classes: true !default;
-$enable-print-styles: true !default;
 
 // Color system
 
@@ -98,7 +97,7 @@ $box-shadow-lg: 0 0 3rem rgba($gray-600, 0.175) !default;
 
 $component-active-color: $black !default;
 $component-active-bg: $secondary !default;
-$component-active-border-color: theme-color("primary") !default;
+$component-active-border-color: $primary !default;
 
 $component-hover-color: $gray-300 !default;
 $component-hover-bg: $gray-300 !default;
@@ -227,14 +226,14 @@ $table-head-letter-spacing: 1px !default;
 
 $table-body-font-size: 0.8125rem !default;
 
-$table-dark-bg: theme-color("default") !default;
+$table-dark-bg: $default !default;
 $table-dark-accent-bg: rgba($white, 0.05) !default;
 $table-dark-hover-bg: rgba($white, 0.075) !default;
-$table-dark-border-color: lighten(theme-color("default"), 7%) !default;
+$table-dark-border-color: lighten($default, 7%) !default;
 $table-dark-color: $body-bg !default;
 
-$table-dark-head-bg: lighten(theme-color("default"), 4%) !default;
-$table-dark-head-color: lighten(theme-color("default"), 35%) !default;
+$table-dark-head-bg: lighten($default, 4%) !default;
+$table-dark-head-color: lighten($default, 35%) !default;
 
 // Buttons + Forms
 
@@ -379,10 +378,7 @@ $custom-control-indicator-checked-color: $component-active-color !default;
 $custom-control-indicator-checked-bg: $component-active-bg !default;
 $custom-control-indicator-checked-border-color: $component-active-border-color !default;
 $custom-control-indicator-checked-box-shadow: $custom-control-indicator-box-shadow !default;
-$custom-control-indicator-checked-disabled-bg: rgba(
-  theme-color("primary"),
-  0.5
-) !default;
+$custom-control-indicator-checked-disabled-bg: rgba($primary, 0.5) !default;
 
 $custom-control-indicator-disabled-bg: $gray-200 !default;
 $custom-control-label-disabled-color: $gray-600 !default;
@@ -394,14 +390,14 @@ $custom-checkbox-indicator-border-radius: $border-radius-sm !default;
 
 $custom-toggle-width: 50px !default;
 $custom-toggle-slider-bg: $gray-200 !default;
-$custom-toggle-checked-bg: theme-color("primary") !default;
+$custom-toggle-checked-bg: $primary !default;
 
 // Form validation
 
 $form-feedback-valid-bg: lighten($success, 15%) !default;
-$form-feedback-valid-color: theme-color("success") !default;
+$form-feedback-valid-color: $success !default;
 $form-feedback-invalid-bg: lighten($warning, 15%) !default;
-$form-feedback-invalid-color: theme-color("warning") !default;
+$form-feedback-invalid-color: $warning !default;
 
 // Allows for customizing button radius independently from global border radius
 
@@ -434,7 +430,7 @@ $noui-slider-connect-bg: $primary !default;
 $noui-slider-connect-disabled-bg: #b2b2b2 !default;
 
 $noui-handle-width: 15px !default;
-$noui-handle-bg: theme-color("primary") !default;
+$noui-handle-bg: $primary !default;
 $noui-handle-border: 0 !default;
 $noui-handle-border-radius: 100% !default;
 
@@ -465,13 +461,13 @@ $nav-pills-space-x: 1rem !default;
 
 $nav-pills-bg: $white !default;
 $nav-pills-border-width: 1px !default;
-$nav-pills-border-color: theme-color("primary") !default;
+$nav-pills-border-color: $primary !default;
 $nav-pills-border-radius: $border-radius !default;
 
-$nav-pills-link-color: theme-color("primary") !default;
-$nav-pills-link-hover-color: darken(theme-color("primary"), 5%) !default;
-$nav-pills-link-active-color: color-yiq(theme-color("primary")) !default;
-$nav-pills-link-active-bg: theme-color("primary") !default;
+$nav-pills-link-color: $primary !default;
+$nav-pills-link-hover-color: darken($primary, 5%) !default;
+$nav-pills-link-active-color: color-yiq($primary) !default;
+$nav-pills-link-active-bg: $primary !default;
 $nav-pills-box-shadow: $btn-box-shadow !default;
 
 // Navbar
@@ -728,10 +724,10 @@ $datepicker-disabled-old-new-color: $gray-500 !default;
 $datepicker-header-cell-border-radius: $border-radius !default;
 
 $datepicker-active-color: $white !default;
-$datepicker-active-background: theme-color("primary") !default;
+$datepicker-active-background: $primary !default;
 $datepicker-active-box-shadow: none !default;
 
-$datepicker-range-background: theme-color("primary") !default;
+$datepicker-range-background: $primary !default;
 $datepicker-range-cell-focused-background: darken(
   $datepicker-range-background,
   5%
@@ -749,13 +745,9 @@ $footer-padding-y: 2.5rem;
 $footer-padding-x: 0;
 
 $footer-link-font-size: 0.85rem !default;
-$footer-bg: theme-color("secondary") !default;
+$footer-bg: $secondary !default;
 $footer-color: $gray-600 !default;
 $footer-link-color: $gray-600 !default;
 $footer-link-hover-color: $gray-700 !default;
 $footer-heading-color: $gray-600 !default;
 $footer-heading-font-size: $font-size-sm !default;
-
-// Import Bootstrap variable defaults
-
-@import "../bootstrap/variables";

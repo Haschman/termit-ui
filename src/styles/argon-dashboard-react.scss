@@ -18,15 +18,17 @@
 
 @import "~bootstrap/scss/functions";
 
-// Core
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/variables-dark";
+@import "~bootstrap/scss/maps";
 
+// Core custom
 @import "custom/functions";
 @import "custom/variables";
 @import "custom/mixins";
 
 // Bootstrap (4.1.3) components
 
-@import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
