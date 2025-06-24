@@ -62,7 +62,7 @@
 }
 
 .btn-outline-secondary {
-  color: darken(theme-color("secondary"), 50%);
+  color: darken($secondary, 50%);
 }
 
 .btn-inner--icon {
@@ -83,5 +83,5 @@
 }
 
 .btn-neutral {
-  color: theme-color("primary");
+  color: $primary;
 }

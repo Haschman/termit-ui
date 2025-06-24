@@ -29,7 +29,7 @@
   @include gradient-bg($background);
   @include box-shadow($btn-box-shadow);
 
-  @include hover {
+  &:hover {
     color: color-yiq($hover-background);
     @include gradient-bg(lighten($hover-background, 10%));
   }
