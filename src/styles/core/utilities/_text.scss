@@ -1,5 +1,29 @@
 // Weight and italics
 
+// Bootstrap 5
+.fw-light {
+  font-weight: 300 !important;
+}
+.fw-normal {
+  font-weight: 400 !important;
+}
+.fw-medium {
+  font-weight: 500 !important;
+}
+.fw-semibold {
+  font-weight: 600 !important;
+}
+.fw-bold {
+  font-weight: 700 !important;
+}
+.fw-bolder {
+  font-weight: 800 !important;
+}
+.fw-black {
+  font-weight: 900 !important;
+}
+
+// Bootstrap 4 for backward compatibility
 .font-weight-300 {
   font-weight: 300 !important;
 }
@@ -91,5 +115,14 @@
 // Color variations
 
 @each $color, $value in $colors {
-  @include text-emphasis-variant(".text-#{$color}", $value);
+  .text-#{$color} {
+    color: $value !important;
+  }
+
+  a.text-#{$color} {
+    &:hover,
+    &:focus {
+      color: shade-color($value, 20%) !important;
+    }
+  }
 }
