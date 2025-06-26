@@ -16,10 +16,10 @@ export default class CustomInput extends AbstractInput<InputProps> {
       <FormGroup>
         {this.renderLabel()}
         <Input
-          type={this.props.type ? this.props.type : "text"}
+          type={(this.props.type ? this.props.type : "text") as any}
           ref={(c: any) => (this.input = c)}
           required={required}
-          bsSize="sm"
+          className={`form-control-sm`}
           valid={this.isValid()}
           invalid={this.isInvalid()}
           {...this.inputProps()}

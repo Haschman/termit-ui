@@ -9,10 +9,10 @@ export default class Select extends AbstractInput<AbstractInputProps> {
       <FormGroup>
         {this.renderLabel()}
         <Input
-          type="select"
+          type={"select" as any}
           ref={(c: any) => (this.input = c)}
           {...this.inputProps()}
-          bsSize="sm"
+          className={`form-select-sm`}
         >
           {this.props.children}
         </Input>

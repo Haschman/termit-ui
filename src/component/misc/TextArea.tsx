@@ -21,9 +21,9 @@ export default class TextArea extends AbstractInput<TextAreaProps> {
       <FormGroup>
         {this.renderLabel()}
         <Input
-          type="textarea"
+          type={"textarea" as any}
           style={{ resize: "none" }}
-          bsSize="sm"
+          className={`form-select-sm`}
           ref={this.input}
           {...this.inputProps()}
         />

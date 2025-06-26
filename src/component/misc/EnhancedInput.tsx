@@ -24,7 +24,7 @@ export default class EnhancedInputPropsInput extends AbstractInput<EnhancedInput
     const input = (
       <React.Fragment>
         <Input
-          type={this.props.type ? this.props.type : "text"}
+          type={(this.props.type ? this.props.type : "text") as any}
           ref={(c: any) => (this.input = c)}
           {...rest}
         />
@@ -34,7 +34,9 @@ export default class EnhancedInputPropsInput extends AbstractInput<EnhancedInput
     );
 
     return (
-      <FormGroup row={labelDirection === LabelDirection.horizontal}>
+      <FormGroup
+        className={labelDirection === LabelDirection.horizontal ? "row" : ""}
+      >
         <Label sm={labelWidth}>{this.props.label}</Label>
         {labelDirection === LabelDirection.horizontal ? (
           <Col sm={inputWidth}>{input}</Col>

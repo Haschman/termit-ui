@@ -47,7 +47,7 @@
   }
 
   .form-control,
-  .custom-select {
+  .form-select {
     .was-validated &:#{$state},
     &.is-#{$state} {
       border-color: $color;
@@ -78,49 +78,37 @@
     }
   }
 
-  .custom-control-input {
-    .was-validated &:#{$state},
-    &.is-#{$state} {
-      ~ .custom-control-label {
-        color: $color;
+  .was-validated .#{$state},
+  .is-#{$state} {
+    .form-check-label {
+      color: $color;
+    }
 
-        &::before {
-          background-color: lighten($color, 25%);
-          border-color: lighten($color, 25%);
-        }
-      }
-
-      ~ .#{$state}-feedback,
-      ~ .#{$state}-tooltip {
-        display: block;
-      }
+    .form-check-input {
+      border-color: $color;
 
       &:checked {
-        ~ .custom-control-label::before {
-          @include gradient-bg(lighten($color, 10%));
-          border-color: lighten($color, 25%);
-        }
+        background-color: $color;
+        border-color: $color;
       }
 
       &:focus {
-        ~ .custom-control-label::before {
-          box-shadow: 0 0 0 1px $body-bg,
-            0 0 0 $input-focus-width rgba($color, 0.25);
-        }
+        box-shadow: 0 0 0 $input-focus-width rgba($color, 0.25);
       }
+    }
+
+    .form-feedback,
+    .form-tooltip {
+      display: block;
     }
   }
 
   // custom file
-  .custom-file-input {
+  .form-control-file {
     .was-validated &:#{$state},
     &.is-#{$state} {
-      ~ .custom-file-label {
+      ~ .form-label {
         border-color: $color;
-
-        &::before {
-          border-color: inherit;
-        }
       }
 
       ~ .#{$state}-feedback,
@@ -129,9 +117,8 @@
       }
 
       &:focus {
-        ~ .custom-file-label {
-          box-shadow: 0 0 0 $input-focus-width rgba($color, 0.25);
-        }
+        border-color: $color;
+        box-shadow: 0 0 0 $input-focus-width rgba($color, 0.25);
       }
     }
   }

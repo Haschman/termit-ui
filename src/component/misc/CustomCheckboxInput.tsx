@@ -17,10 +17,10 @@ export default class CustomCheckBoxInput extends AbstractInput<InputProps> {
     return (
       <>
         <Input
-          type="checkbox"
+          type={"checkbox" as any}
           ref={(c: any) => (this.input = c)}
           checked={this.props.checked}
-          className={this.props.className}
+          className={`form-check-input ${this.props.className || ""}`}
           required={required}
           {...this.inputProps()}
         />
