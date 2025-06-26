@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Placement } from "popper.js";
+import { Placement } from "@popperjs/core";
 import classNames from "classnames";
 import { HiTranslate } from "react-icons/hi";
 import { UncontrolledTooltip } from "reactstrap";

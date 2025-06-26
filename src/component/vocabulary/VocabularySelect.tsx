@@ -58,22 +58,20 @@ const VocabularySelect: React.FC<VocabularySelectProps> = (props) => {
           : i18n("vocabulary.select-vocabulary")}
       </DropdownToggle>
       <DropdownMenu
-        modifiers={{
-          setMaxHeight: {
+        modifiers={[
+          {
+            name: "setMaxHeight",
             enabled: true,
-            order: 890,
-            fn: (data) => {
-              return {
-                ...data,
-                styles: {
-                  ...data.styles,
-                  overflow: "auto",
-                  maxHeight: Utils.calculateAssetListHeight() + "px",
-                },
+            phase: "beforeWrite",
+            fn: ({ state }) => {
+              state.styles.popper = {
+                ...state.styles.popper,
+                overflow: "auto",
+                maxHeight: `${Utils.calculateAssetListHeight()}px`,
               };
             },
           },
-        }}
+        ]}
       >
         {items}
       </DropdownMenu>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { UncontrolledTooltip } from "reactstrap";
-import { Placement } from "popper.js";
+import { Placement } from "@popperjs/core";
 import "./InfoIcon.scss";
 import classNames from "classnames";
 
