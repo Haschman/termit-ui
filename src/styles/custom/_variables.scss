@@ -466,7 +466,7 @@ $nav-pills-border-radius: $border-radius !default;
 
 $nav-pills-link-color: $primary !default;
 $nav-pills-link-hover-color: darken($primary, 5%) !default;
-$nav-pills-link-active-color: color-yiq($primary) !default;
+$nav-pills-link-active-color: color-contrast($primary) !default;
 $nav-pills-link-active-bg: $primary !default;
 $nav-pills-box-shadow: $btn-box-shadow !default;
 
