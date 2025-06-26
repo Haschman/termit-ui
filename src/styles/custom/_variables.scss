@@ -13,6 +13,11 @@ $enable-gradients: false !default;
 $enable-transitions: true !default;
 $enable-grid-classes: true !default;
 
+// Required color contrast variables for Bootstrap 5
+$min-contrast-ratio: 4.5 !default;
+$color-contrast-dark: #000 !default;
+$color-contrast-light: #fff !default;
+
 // Color system
 
 @import "_colors.scss";
@@ -26,10 +31,8 @@ $grid-breakpoints: (
   md: 768px,
   lg: 992px,
   xl: 1200px,
+  xxl: 1400px,
 );
-
-@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
-@include _assert-starts-at-zero($grid-breakpoints);
 
 // Grid containers
 //

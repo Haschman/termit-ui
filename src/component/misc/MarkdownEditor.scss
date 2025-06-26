@@ -1,4 +1,5 @@
-@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/functions";
+@import "../../styles/custom/variables";
 
 .markdown-editor-readonly {
   background-color: $input-disabled-bg !important;
