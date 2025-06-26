@@ -42,7 +42,7 @@
 
       &:nth-child(1) {
         font-size: 42px;
-        color: theme-color("warning");
+        color: $warning;
         z-index: 2;
       }
     }
@@ -67,7 +67,7 @@
           left: 50%;
           top: 50%;
           font-size: 42px;
-          color: theme-color("warning");
+          color: $warning;
         }
 
         &:nth-child(2) {

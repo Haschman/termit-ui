@@ -52,7 +52,7 @@
     &:hover {
       .heading,
       p {
-        color: theme-color("default") !important;
+        color: $default !important;
       }
     }
   }

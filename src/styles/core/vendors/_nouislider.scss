@@ -308,7 +308,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .noUi-connect {
-  background: theme-color("primary");
+  background: $primary;
   box-shadow: none;
 }
 
