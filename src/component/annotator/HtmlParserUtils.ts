@@ -1,5 +1,5 @@
 import { DomHandler, Parser as HtmlParser } from "htmlparser2";
-import { Element, Node } from "domhandler";
+import { Element, AnyNode } from "domhandler";
 import render from "dom-serializer";
 
 const RDF_ATTRIBUTE_NAMES = ["about", "property", "resource", "typeof"];
@@ -25,7 +25,7 @@ function removeAddedAttributes(elem: Element) {
 }
 
 const HtmlParserUtils = {
-  html2dom(html: string): Node[] {
+  html2dom(html: string): AnyNode[] {
     // Do not decode HTML entities (e.g., &lt;) when parsing content for object representation, it caused issues
     // with rendering
     const options = { decodeEntities: false };
@@ -33,11 +33,11 @@ const HtmlParserUtils = {
     const handler = new DomHandler(null, null, removeAddedAttributes);
     const parser = new HtmlParser(handler, options);
     parser.parseComplete(html);
-    return handler.dom as Node[];
+    return handler.dom as AnyNode[];
   },
 
-  dom2html(dom: Node[]): string {
-    return render(dom, { decodeEntities: false });
+  dom2html(dom: AnyNode[]): string {
+    return render(dom as any, { decodeEntities: false });
   },
   /**
    * Returns prefix map defined in attribute 'prefix' of an html node.
@@ -46,7 +46,7 @@ const HtmlParserUtils = {
    * NCName ':' ' '+ xsd:anyURI
    * @param node Html node.
    */
-  getPrefixMap(node: Node): Map<string, string> {
+  getPrefixMap(node: AnyNode): Map<string, string> {
     if ((node as Element).attribs && (node as Element).attribs.prefix) {
       const words = (node as Element).attribs.prefix.split(/\s+/);
       if (words.length % 2) {

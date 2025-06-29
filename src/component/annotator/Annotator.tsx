@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Element, Node as DomHandlerNode } from "domhandler";
+import { Element, Node as DomHandlerNode, AnyNode } from "domhandler";
 import HtmlParserUtils from "./HtmlParserUtils";
 import AnnotationDomHelper, { AnnotationType } from "./AnnotationDomHelper";
 import Term, { TermData } from "../../model/Term";
@@ -85,7 +85,7 @@ interface AnnotatorProps extends HasI18n {
 
 interface AnnotatorState {
   prefixMap: Map<string, string>;
-  internalHtml: DomHandlerNode[];
+  internalHtml: AnyNode[];
   stickyAnnotationId: string;
 
   showSelectionPurposeDialog: boolean;
@@ -447,7 +447,7 @@ export class Annotator extends React.Component<AnnotatorProps, AnnotatorState> {
     this.updateInternalHtml(dom);
   };
 
-  private updateInternalHtml = (dom: DomHandlerNode[]) => {
+  private updateInternalHtml = (dom: AnyNode[]) => {
     this.setState({ internalHtml: dom });
     const htmlSplit = HtmlDomUtils.splitHtml(this.props.initialHtml);
     const html =

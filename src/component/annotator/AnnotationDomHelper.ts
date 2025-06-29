@@ -2,8 +2,9 @@ import { DomUtils } from "htmlparser2";
 import {
   DataNode,
   Element as DomHandlerElement,
-  Node as DomHandlerNode,
   NodeWithChildren,
+  AnyNode,
+  Text,
 } from "domhandler";
 import VocabularyUtils from "../../util/VocabularyUtils";
 import HtmlParserUtils from "./HtmlParserUtils";
@@ -36,7 +37,7 @@ function getPropertyForAnnotationType(annotationType: string) {
 }
 
 const AnnotationDomHelper = {
-  isAnnotation(node: DomHandlerNode, prefixMap?: Map<string, string>): boolean {
+  isAnnotation(node: AnyNode, prefixMap?: Map<string, string>): boolean {
     if (!node || !(node as DomHandlerElement).attribs) {
       return false;
     }
@@ -50,12 +51,12 @@ const AnnotationDomHelper = {
   },
 
   findAnnotation(
-    dom: DomHandlerNode[],
+    dom: AnyNode[],
     annotationId: string,
     prefixMap?: Map<string, string>
   ): DomHandlerElement | void {
     const foundResults = DomUtils.find(
-      (n: DomHandlerNode) =>
+      (n: AnyNode) =>
         this.isAnnotation(n, prefixMap) &&
         annotationId === (n as DomHandlerElement).attribs.about,
       dom,
@@ -67,7 +68,7 @@ const AnnotationDomHelper = {
     }
   },
 
-  removeAnnotation(annotation: DomHandlerNode, dom: DomHandlerNode[]): void {
+  removeAnnotation(annotation: AnyNode, dom: AnyNode[]): void {
     // assuming annotation.type === "tag"
     const elem = annotation as DomHandlerElement;
     if (Utils.sanitizeArray(elem.children).length === 1) {
@@ -102,7 +103,7 @@ const AnnotationDomHelper = {
     }
   },
 
-  isOnlyChild(annotation: DomHandlerNode) {
+  isOnlyChild(annotation: AnyNode) {
     return (
       annotation.parent &&
       !annotation.previousSibling &&
@@ -110,11 +111,8 @@ const AnnotationDomHelper = {
     );
   },
 
-  createTextualNode(annotation: NodeWithChildren): any {
-    return {
-      data: (annotation.children![0] as DataNode).data,
-      type: "text",
-    };
+  createTextualNode(annotation: NodeWithChildren): Text {
+    return new Text((annotation.children![0] as DataNode).data);
   },
 
   createNewAnnotation(
@@ -135,7 +133,16 @@ const AnnotationDomHelper = {
       ),
       typeof: HtmlParserUtils.shortenIri(type, prefixMap),
     });
-    elem.children = newDom;
+
+    elem.children = [];
+
+    if (newDom && Array.isArray(newDom)) {
+      for (const child of newDom) {
+        if (child) {
+          DomUtils.appendChild(elem, child as any);
+        }
+      }
+    }
     return elem;
   },
 
