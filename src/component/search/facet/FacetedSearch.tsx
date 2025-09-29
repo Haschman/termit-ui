@@ -77,12 +77,15 @@ const FacetedSearch: React.FC = () => {
     null
   );
 
-  const onChange = (value: SearchParam) => {
+  const onChange = (value: SearchParam, debounce: boolean = false) => {
     const change = {};
     change[value.property] = value;
     setParams({ ...params, ...change });
     setPage(0);
-    if (value.matchType === MatchType.IRI || value.value[0].length === 0) {
+    if (
+      (value.matchType === MatchType.IRI || value.value[0].length === 0) &&
+      !debounce
+    ) {
       runSearch({ ...params, ...change }, page);
     } else {
       debouncedSearch({ ...params, ...change }, page);

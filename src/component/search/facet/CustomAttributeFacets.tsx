@@ -50,7 +50,7 @@ export const CustomAttributeFacets: React.FC<{
 function renderFacet(
   att: RdfProperty,
   value: SearchParam,
-  onChange: (value: SearchParam) => void,
+  onChange: (value: SearchParam, debounce?: boolean) => void,
   lang: string
 ) {
   const hashCode = Utils.hashCode(att.iri).toString();
@@ -76,7 +76,6 @@ function renderFacet(
         />
       );
     case VocabularyUtils.XSD_STRING:
-    case VocabularyUtils.RDFS_RESOURCE:
       return (
         <TextFacet
           id={hashCode}
@@ -84,6 +83,16 @@ function renderFacet(
           label={getLocalized(att.label, lang)}
           value={value}
           onChange={onChange}
+        />
+      );
+    case VocabularyUtils.RDFS_RESOURCE:
+      return (
+        <TextFacet
+          id={hashCode}
+          key={hashCode}
+          label={getLocalized(att.label, lang)}
+          value={value}
+          onChange={(v) => onChange(v, true)}
         />
       );
     default:
