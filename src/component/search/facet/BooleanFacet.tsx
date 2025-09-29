@@ -14,7 +14,7 @@ export const BooleanFacet: React.FC<{
     Utils.sanitizeArray(value.value).length > 0
       ? value.value[0] === true
       : false;
-  // TODO We need to be able to set the value to undefined, so we can clear the facet
+  // TODO We need to be able to set the value to undefined, so we can clear the facet - this can be solved by having facets available on select - deselecting the facet would clear it
   return (
     <FormGroup>
       <CustomCheckBoxInput

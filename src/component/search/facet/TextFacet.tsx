@@ -1,9 +1,10 @@
 import React from "react";
 import SearchParam, { MatchType } from "../../../model/search/SearchParam";
-import { FormGroup, Input, Label } from "reactstrap";
+import { FormGroup, Label } from "reactstrap";
 import Toggle from "react-bootstrap-toggle";
 import { useI18n } from "../../hook/useI18n";
 import "../../misc/CustomToggle.scss";
+import CustomInput from "../../misc/CustomInput";
 
 interface TextFacetProps {
   id: string;
@@ -46,8 +47,8 @@ const TextFacet: React.FC<TextFacetProps> = ({
             />
           )}
         </div>
-        <Input
-          bsSize="sm"
+        <CustomInput
+          id={id}
           onChange={onInputChange}
           value={value.value.length > 0 ? value.value[0] : ""}
         />

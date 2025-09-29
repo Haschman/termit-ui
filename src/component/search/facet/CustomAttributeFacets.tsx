@@ -14,6 +14,7 @@ import { TermSelectorFacet } from "./TermSelectorFacet";
 import TextFacet from "./TextFacet";
 import { ThunkDispatch } from "../../../util/Types";
 import { getCustomAttributes } from "../../../action/AsyncActions";
+import { NumberFacet } from "./NumberFacet";
 
 export const CustomAttributeFacets: React.FC<{
   values: { [key: string]: SearchParam };
@@ -85,6 +86,15 @@ function renderFacet(
           onChange={onChange}
         />
       );
+    case VocabularyUtils.XSD_INT:
+      return (
+        <NumberFacet
+          id={hashCode}
+          label={getLocalized(att.label, lang)}
+          value={value}
+          onChange={onChange}
+        />
+      );
     case VocabularyUtils.RDFS_RESOURCE:
       return (
         <TextFacet
@@ -110,6 +120,12 @@ function searchParam(att: RdfProperty, value?: SearchParam): SearchParam {
         property: att.iri,
         matchType: MatchType.EXACT_MATCH,
         value: [false],
+      };
+    case VocabularyUtils.XSD_INT:
+      return {
+        property: att.iri,
+        matchType: MatchType.EXACT_MATCH,
+        value: [],
       };
     case VocabularyUtils.TERM:
       return { property: att.iri, matchType: MatchType.IRI, value: [] };

@@ -83,7 +83,8 @@ const FacetedSearch: React.FC = () => {
     setParams({ ...params, ...change });
     setPage(0);
     if (
-      (value.matchType === MatchType.IRI || value.value[0].length === 0) &&
+      (value.matchType === MatchType.IRI ||
+        (value.value.length > 0 && value.value[0].length === 0)) &&
       !debounce
     ) {
       runSearch({ ...params, ...change }, page);
