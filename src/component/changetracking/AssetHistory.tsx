@@ -103,18 +103,6 @@ export const AssetHistory: React.FC<AssetHistoryProps> = ({ asset }) => {
     setPage(0);
   }, [asset, filterAuthor, filterType, filterAttribute]);
 
-  React.useEffect(() => {
-    if (!records) return;
-
-    const maxPageIndex =
-      records.length === 0 ? 0 : Math.floor((records.length - 1) / pageSize);
-
-    // Current page is out of range after filtering
-    if (page > maxPageIndex) {
-      setPage(maxPageIndex);
-    }
-  }, [records, page, pageSize]);
-
   if (!records) {
     return <ContainerMask text={i18n("history.loading")} />;
   }
