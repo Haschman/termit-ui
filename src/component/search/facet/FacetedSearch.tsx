@@ -20,15 +20,23 @@ import SimplePagination from "../../dashboard/widget/lastcommented/SimplePaginat
 import Constants from "../../../util/Constants";
 import TermStateFacet from "./TermStateFacet";
 import { useDebouncedCallback } from "use-debounce";
+import { CustomAttributeFacets } from "./CustomAttributeFacets";
+import Utils from "../../../util/Utils";
 
 function aggregateSearchParams(params: { [key: string]: SearchParam }) {
   return Object.entries(params)
     .map((e) => e[1])
-    .filter((p) =>
-      p.matchType === MatchType.IRI
-        ? p.value.length > 0
-        : p.value[0].trim().length > 0
-    );
+    .filter((p) => {
+      if (p.value.length > 0) {
+        if (typeof p.value[0] === "string") {
+          return p.matchType !== MatchType.IRI
+            ? p.value[0].trim().length > 0
+            : Utils.isUri(p.value[0].trim());
+        }
+        return p.value[0] !== undefined;
+      }
+      return false;
+    });
 }
 
 const INITIAL_STATE = {};
@@ -62,7 +70,9 @@ const FacetedSearch: React.FC = () => {
   const { i18n } = useI18n();
   const dispatch: ThunkDispatch = useDispatch();
   const [page, setPage] = useState(0);
-  const [params, setParams] = useState(INITIAL_STATE);
+  const [params, setParams] = useState<{ [key: string]: SearchParam }>(
+    INITIAL_STATE
+  );
   const [results, setResults] = React.useState<FacetedSearchResult[] | null>(
     null
   );
@@ -150,6 +160,7 @@ const FacetedSearch: React.FC = () => {
               />
             </Col>
           </Row>
+          <CustomAttributeFacets values={params} onChange={onChange} />
         </CardBody>
       </Card>
       <Card>

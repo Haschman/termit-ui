@@ -10,6 +10,7 @@ interface TextFacetProps {
   label: string;
   value: SearchParam;
   onChange: (newValue: SearchParam) => void;
+  disableMatchTypeToggle?: boolean;
 }
 
 const TextFacet: React.FC<TextFacetProps> = ({
@@ -17,6 +18,7 @@ const TextFacet: React.FC<TextFacetProps> = ({
   label,
   value,
   onChange,
+  disableMatchTypeToggle,
 }) => {
   const onMatchTypeToggle = () => {
     const result: SearchParam = { ...value };
@@ -33,14 +35,16 @@ const TextFacet: React.FC<TextFacetProps> = ({
   };
   return (
     <>
-      <FormGroup className="mb-0">
+      <FormGroup>
         <div className="d-flex justify-content-between">
           <Label className="attribute-label">{label}</Label>
-          <ExactMatchToggle
-            active={value.matchType === MatchType.EXACT_MATCH}
-            id={`${id}-matchType-toggle`}
-            onToggle={onMatchTypeToggle}
-          />
+          {value.matchType !== MatchType.IRI && !disableMatchTypeToggle && (
+            <ExactMatchToggle
+              active={value.matchType === MatchType.EXACT_MATCH}
+              id={`${id}-matchType-toggle`}
+              onToggle={onMatchTypeToggle}
+            />
+          )}
         </div>
         <Input
           bsSize="sm"
