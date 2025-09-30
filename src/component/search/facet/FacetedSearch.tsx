@@ -39,6 +39,8 @@ function aggregateSearchParams(params: { [key: string]: SearchParam }) {
     });
 }
 
+const RESULT_PAGE_SIZE = 10;
+
 const INITIAL_STATE = {};
 INITIAL_STATE[VocabularyUtils.SKOS_NOTATION] = {
   property: VocabularyUtils.SKOS_NOTATION,
@@ -108,7 +110,7 @@ const FacetedSearch: React.FC = () => {
         dispatch(
           executeFacetedTermSearch(sp, {
             page,
-            size: Constants.DEFAULT_PAGE_SIZE,
+            size: RESULT_PAGE_SIZE,
           })
         ),
         "faceted-search"
@@ -174,10 +176,8 @@ const FacetedSearch: React.FC = () => {
             <SimplePagination
               page={page}
               setPage={onPageChange}
-              pageSize={Constants.LAST_COMMENTED_ASSET_LIMIT}
-              itemCount={
-                results.length === 0 ? 0 : Constants.LAST_COMMENTED_ASSET_LIMIT
-              }
+              pageSize={RESULT_PAGE_SIZE}
+              itemCount={results.length === 0 ? 0 : RESULT_PAGE_SIZE}
               className="mt-3"
             />
           )}
