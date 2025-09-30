@@ -1,5 +1,5 @@
 import React from "react";
-import SearchParam, { MatchType } from "../../../model/search/SearchParam";
+import SearchParam from "../../../model/search/SearchParam";
 import { useI18n } from "../../hook/useI18n";
 import { useDispatch, useSelector } from "react-redux";
 import TermItState from "../../../model/TermItState";
@@ -15,6 +15,7 @@ import TextFacet from "./TextFacet";
 import { ThunkDispatch } from "../../../util/Types";
 import { getCustomAttributes } from "../../../action/AsyncActions";
 import { NumberFacet } from "./NumberFacet";
+import { createSearchParam } from "./FacetedSearchUtil";
 
 export const CustomAttributeFacets: React.FC<{
   values: { [key: string]: SearchParam };
@@ -38,7 +39,7 @@ export const CustomAttributeFacets: React.FC<{
           <Col xl={4} xs={6}>
             {renderFacet(
               att,
-              values[att.iri] || searchParam(att),
+              values[att.iri] || createSearchParam(att),
               onChange,
               lang
             )}
@@ -107,39 +108,5 @@ function renderFacet(
       );
     default:
       return null;
-  }
-}
-
-function searchParam(att: RdfProperty, value?: SearchParam): SearchParam {
-  if (value) {
-    return value;
-  }
-  switch (att.rangeIri) {
-    case VocabularyUtils.XSD_BOOLEAN:
-      return {
-        property: att.iri,
-        matchType: MatchType.EXACT_MATCH,
-        value: [false],
-      };
-    case VocabularyUtils.XSD_INT:
-      return {
-        property: att.iri,
-        matchType: MatchType.EXACT_MATCH,
-        value: [],
-      };
-    case VocabularyUtils.TERM:
-      return { property: att.iri, matchType: MatchType.IRI, value: [] };
-    case VocabularyUtils.RDFS_RESOURCE:
-      return {
-        property: att.iri,
-        matchType: MatchType.IRI,
-        value: [],
-      };
-    default:
-      return {
-        property: att.iri,
-        matchType: MatchType.SUBSTRING,
-        value: [],
-      };
   }
 }

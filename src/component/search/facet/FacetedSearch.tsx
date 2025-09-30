@@ -21,60 +21,16 @@ import Constants from "../../../util/Constants";
 import TermStateFacet from "./TermStateFacet";
 import { useDebouncedCallback } from "use-debounce";
 import { CustomAttributeFacets } from "./CustomAttributeFacets";
-import Utils from "../../../util/Utils";
-
-function aggregateSearchParams(params: { [key: string]: SearchParam }) {
-  return Object.entries(params)
-    .map((e) => e[1])
-    .filter((p) => {
-      if (p.value.length > 0) {
-        if (typeof p.value[0] === "string") {
-          return p.matchType !== MatchType.IRI
-            ? p.value[0].trim().length > 0
-            : Utils.isUri(p.value[0].trim());
-        }
-        return p.value[0] !== undefined;
-      }
-      return false;
-    });
-}
+import { aggregateSearchParams, createSearchParam } from "./FacetedSearchUtil";
+import { RdfProperty } from "../../../model/RdfsResource";
 
 const RESULT_PAGE_SIZE = 10;
-
-const INITIAL_STATE = {};
-INITIAL_STATE[VocabularyUtils.SKOS_NOTATION] = {
-  property: VocabularyUtils.SKOS_NOTATION,
-  value: [""],
-  matchType: MatchType.EXACT_MATCH,
-};
-INITIAL_STATE[VocabularyUtils.SKOS_EXAMPLE] = {
-  property: VocabularyUtils.SKOS_EXAMPLE,
-  value: [""],
-  matchType: MatchType.SUBSTRING,
-};
-INITIAL_STATE[VocabularyUtils.RDF_TYPE] = {
-  property: VocabularyUtils.RDF_TYPE,
-  value: [],
-  matchType: MatchType.IRI,
-};
-INITIAL_STATE[VocabularyUtils.HAS_TERM_STATE] = {
-  property: VocabularyUtils.HAS_TERM_STATE,
-  value: [],
-  matchType: MatchType.IRI,
-};
-INITIAL_STATE[VocabularyUtils.IS_TERM_FROM_VOCABULARY] = {
-  property: VocabularyUtils.IS_TERM_FROM_VOCABULARY,
-  value: [],
-  matchType: MatchType.IRI,
-};
 
 const FacetedSearch: React.FC = () => {
   const { i18n } = useI18n();
   const dispatch: ThunkDispatch = useDispatch();
   const [page, setPage] = useState(0);
-  const [params, setParams] = useState<{ [key: string]: SearchParam }>(
-    INITIAL_STATE
-  );
+  const [params, setParams] = useState<{ [key: string]: SearchParam }>({});
   const [results, setResults] = React.useState<FacetedSearchResult[] | null>(
     null
   );
@@ -131,19 +87,43 @@ const FacetedSearch: React.FC = () => {
           <Row>
             <Col xl={4} xs={6}>
               <VocabularyFacet
-                value={params[VocabularyUtils.IS_TERM_FROM_VOCABULARY]}
+                value={
+                  params[VocabularyUtils.IS_TERM_FROM_VOCABULARY] ||
+                  createSearchParam(
+                    new RdfProperty({
+                      iri: VocabularyUtils.IS_TERM_FROM_VOCABULARY,
+                      range: { iri: VocabularyUtils.VOCABULARY },
+                    })
+                  )
+                }
                 onChange={onChange}
               />
             </Col>
             <Col xl={4} xs={6}>
               <TermTypeFacet
-                value={params[VocabularyUtils.RDF_TYPE]}
+                value={
+                  params[VocabularyUtils.RDF_TYPE] ||
+                  createSearchParam(
+                    new RdfProperty({
+                      iri: VocabularyUtils.RDF_TYPE,
+                      range: { iri: VocabularyUtils.RDFS_RESOURCE },
+                    })
+                  )
+                }
                 onChange={onChange}
               />
             </Col>
             <Col xl={4} xs={6}>
               <TermStateFacet
-                value={params[VocabularyUtils.HAS_TERM_STATE]}
+                value={
+                  params[VocabularyUtils.HAS_TERM_STATE] ||
+                  createSearchParam(
+                    new RdfProperty({
+                      iri: VocabularyUtils.HAS_TERM_STATE,
+                      range: { iri: VocabularyUtils.RDFS_RESOURCE },
+                    })
+                  )
+                }
                 onChange={onChange}
               />
             </Col>
@@ -153,7 +133,17 @@ const FacetedSearch: React.FC = () => {
               <TextFacet
                 id="faceted-search-notation"
                 label={i18n("term.metadata.notation.label")}
-                value={params[VocabularyUtils.SKOS_NOTATION]}
+                value={
+                  params[VocabularyUtils.SKOS_NOTATION] ||
+                  createSearchParam(
+                    new RdfProperty({
+                      iri: VocabularyUtils.SKOS_NOTATION,
+                      range: { iri: VocabularyUtils.XSD_STRING },
+                    }),
+                    undefined,
+                    MatchType.EXACT_MATCH
+                  )
+                }
                 onChange={onChange}
               />
             </Col>
@@ -161,7 +151,15 @@ const FacetedSearch: React.FC = () => {
               <TextFacet
                 id="faceted-search-examples"
                 label={i18n("term.metadata.example.label")}
-                value={params[VocabularyUtils.SKOS_EXAMPLE]}
+                value={
+                  params[VocabularyUtils.SKOS_EXAMPLE] ||
+                  createSearchParam(
+                    new RdfProperty({
+                      iri: VocabularyUtils.SKOS_EXAMPLE,
+                      range: { iri: VocabularyUtils.XSD_STRING },
+                    })
+                  )
+                }
                 onChange={onChange}
               />
             </Col>
