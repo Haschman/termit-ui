@@ -847,7 +847,7 @@ const en = {
     "error.vocabulary.import.excel.duplicateIdentifier":
       "The Excel file contains multiple terms with the same identifier.",
     "error.vocabulary.import.excel.duplicateLabel":
-      "The Excel file contains multiple terms with the same label.",
+      "The Excel file contains multiple terms with the same label: {label}",
     "error.vocabulary.import.excel.labelWithDifferentIdentifierExists":
       'Vocabulary already contains a term with label "{label}" with a different identifier than the imported one. Existing identifier: {existingUri}',
     "error.vocabulary.import.excel.externalParentUnrelatedVocabulary":
