@@ -3,7 +3,7 @@ import SearchParam from "../../../model/search/SearchParam";
 import { useI18n } from "../../hook/useI18n";
 import { useDispatch, useSelector } from "react-redux";
 import TermItState from "../../../model/TermItState";
-import { Col, Row } from "reactstrap";
+import { Col } from "reactstrap";
 import { RdfProperty } from "src/model/RdfsResource";
 import VocabularyUtils from "../../../util/VocabularyUtils";
 import { BooleanFacet } from "./BooleanFacet";
@@ -20,7 +20,11 @@ import { createSearchParam } from "./FacetedSearchUtil";
 export const CustomAttributeFacets: React.FC<{
   values: { [key: string]: SearchParam };
   onChange: (value: SearchParam) => void;
-}> = ({ values, onChange }) => {
+  allowedIris?: string[];
+  xl?: number;
+  md?: number;
+  xs?: number;
+}> = ({ values, onChange, allowedIris = [], xl = 4, md = 6, xs = 12 }) => {
   const { locale } = useI18n();
   const dispatch: ThunkDispatch = useDispatch();
   const customAttributes = useSelector(
@@ -31,22 +35,20 @@ export const CustomAttributeFacets: React.FC<{
   }, [dispatch]);
   const lang = getShortLocale(locale);
 
-  return (
-    <Row>
-      {customAttributes
-        .filter((att) => att.domainIri === VocabularyUtils.TERM)
-        .map((att) => (
-          <Col xl={4} xs={6}>
-            {renderFacet(
-              att,
-              values[att.iri] || createSearchParam(att),
-              onChange,
-              lang
-            )}
-          </Col>
-        ))}
-    </Row>
-  );
+  const content = customAttributes
+    .filter((att) => att.domainIri === VocabularyUtils.TERM)
+    .filter((att) => allowedIris.includes(att.iri))
+    .map((att) => (
+      <Col key={att.iri} xl={xl} md={md} xs={xs} className="mb-3">
+        {renderFacet(
+          att,
+          values[att.iri] || createSearchParam(att),
+          onChange,
+          lang
+        )}
+      </Col>
+    ));
+  return <>{content}</>;
 };
 
 function renderFacet(
