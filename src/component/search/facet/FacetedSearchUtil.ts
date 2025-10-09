@@ -43,7 +43,7 @@ export function createSearchParam(
       return {
         property: att.iri,
         matchType: matchType || MatchType.EXACT_MATCH,
-        value: [false],
+        value: [],
       };
     case VocabularyUtils.XSD_INT:
       return {
