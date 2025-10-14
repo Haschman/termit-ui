@@ -66,7 +66,7 @@ export function getAvailableVocabularies() {
 export function importSkosAsNewVocabulary(data: File, rename: Boolean) {
   const action = { type: ActionType.IMPORT_VOCABULARY };
   const formData = new FormData();
-  formData.append("file", data, "thesaurus");
+  formData.append("file", data, data.name);
   formData.append("rename", rename.toString());
   return (dispatch: ThunkDispatch) => {
     dispatch(asyncActionRequest(action, true));
