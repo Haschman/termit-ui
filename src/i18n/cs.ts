@@ -852,6 +852,8 @@ const cs = {
       "Soubor nemohl být nahrán, protože jeho velikost přesahuje nastavený limit.",
     "error.term.state.terminal.liveChildren":
       "Pojmu nelze nastavit koncový stav, dokud má alespoň jednoho potomka v jiném než koncovém stavu.",
+    "error.vocabulary.import.skos.missingLanguageTag":
+      "Slovník se nepodařilo naimportovat, protože hodnota property {property} pojmu {term} nemá specifikován jazyk.",
     "error.vocabulary.import.excel.duplicateIdentifier":
       "Excel obsahuje více pojmů se stejným identifikátorem.",
     "error.vocabulary.import.excel.duplicateLabel":
