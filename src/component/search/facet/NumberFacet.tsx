@@ -19,7 +19,7 @@ export const NumberFacet: React.FC<{
     <>
       <FormGroup>
         <div className="d-flex justify-content-between">
-          <Label className="attribute-label">{label}</Label>
+          <Label className="attribute-label mb-3">{label}</Label>
         </div>
         <CustomInput
           id={id}
