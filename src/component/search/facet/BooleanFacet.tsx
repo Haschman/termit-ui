@@ -1,5 +1,5 @@
 import React from "react";
-import { FormGroup } from "reactstrap";
+import { FormGroup, Label } from "reactstrap";
 import CustomCheckBoxInput from "../../misc/CustomCheckboxInput";
 import SearchParam from "../../../model/search/SearchParam";
 import Utils from "../../../util/Utils";
@@ -23,9 +23,11 @@ export const BooleanFacet: React.FC<{
 
   return (
     <FormGroup>
+      <div className="d-flex justify-content-between">
+        <Label className="attribute-label mb-3">{label}</Label>
+      </div>
       <CustomCheckBoxInput
         id={id}
-        label={label}
         checked={checked}
         onChange={handleToggle}
         className="relative ml-0"
