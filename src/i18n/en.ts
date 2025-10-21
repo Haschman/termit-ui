@@ -844,6 +844,8 @@ const en = {
       "The file could not be uploaded because it exceeds the configured maximum file size limit.",
     "error.term.state.terminal.liveChildren":
       "Cannot set term state to a terminal when it has at least one sub term in non-terminal state.",
+    "error.vocabulary.import.skos.missingLabel":
+      "Unable to import vocabulary, term {term} does not have a label.",
     "error.vocabulary.import.skos.missingLanguageTag":
       "Unable to import vocabulary, property {property} of term {term} does not have a language tag.",
     "error.vocabulary.import.excel.duplicateIdentifier":
