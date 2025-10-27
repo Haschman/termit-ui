@@ -328,7 +328,7 @@ export class TermDetail extends EditableComponent<
         <span className={labelClass}>
           {getLocalized(term.label, this.state.language)}
         </span>
-        <SnapshotCreationInfo asset={term} />
+        <SnapshotCreationInfo asset={term} vocabulary={this.props.vocabulary} />
         <CopyIriIcon url={term.iri as string} />
         <TermReadOnlyIcon term={term} vocabulary={vocabulary} />
         <StoreBasedTerminalTermStateIcon term={term} id="term-detail-state" />
