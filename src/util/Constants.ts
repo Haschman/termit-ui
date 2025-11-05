@@ -51,12 +51,12 @@ const constants = {
       locale: "de-DE",
       label: "Deutsch",
       flag: "flags/de.svg",
-    },   
+    },
     EN: {
       locale: DEFAULT_LANGUAGE,
       label: "English",
       flag: "flags/gb.svg",
-    }, 
+    },
   },
   DEFAULT_LANGUAGE,
   // Error origin caused by the inability to connect to the backend server
