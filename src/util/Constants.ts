@@ -47,6 +47,11 @@ const constants = {
       label: "Čestina",
       flag: "flags/cz.svg",
     },
+    DE: {
+      locale: "de-DE",
+      label: "Deutsch",
+      flag: "flags/de.svg",
+    },
     EN: {
       locale: DEFAULT_LANGUAGE,
       label: "English",
