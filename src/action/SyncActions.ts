@@ -3,7 +3,6 @@ import ActionType, {
   AsyncAction,
   AsyncActionSuccess,
   AsyncFailureAction,
-  ExecuteQueryAction,
   MessageAction,
   NotificationAction,
   SelectingTermsAction,
@@ -88,18 +87,6 @@ export function switchLanguage(language: Language): SwitchLanguageAction {
 export function userLogout(): Action {
   return {
     type: ActionType.LOGOUT,
-  };
-}
-
-export function executeQuerySuccess(
-  queryString: string,
-  result: object
-): ExecuteQueryAction {
-  return {
-    type: ActionType.EXECUTE_QUERY,
-    status: AsyncActionStatus.SUCCESS,
-    queryResult: result,
-    queryString,
   };
 }
 
