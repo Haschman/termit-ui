@@ -316,6 +316,7 @@ export class TermDetail extends EditableComponent<
 
   private renderTitle() {
     const term = this.props.term!;
+    const vocabulary = this.props.vocabulary;
     const labelClass = classNames({ "text-muted": term.isSnapshot() });
     const altLabels = getLocalizedPlural(term.altLabels, this.state.language)
       .sort()
@@ -323,16 +324,13 @@ export class TermDetail extends EditableComponent<
     return (
       <>
         <TermQualityBadge term={term} />
-        <TermSnapshotIcon term={term} vocabulary={this.props.vocabulary} />
+        <TermSnapshotIcon term={term} vocabulary={vocabulary} />
         <span className={labelClass}>
           {getLocalized(term.label, this.state.language)}
         </span>
         <SnapshotCreationInfo asset={term} />
         <CopyIriIcon url={term.iri as string} />
-        <TermReadOnlyIcon
-          term={term}
-          accessLevel={this.props.vocabulary.accessLevel}
-        />
+        <TermReadOnlyIcon term={term} vocabulary={vocabulary} />
         <StoreBasedTerminalTermStateIcon term={term} id="term-detail-state" />
         <br />
         <div className="small italics">
