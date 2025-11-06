@@ -25,6 +25,7 @@ import {
   AnnotationOrigin,
 } from "../model/AnnotatorLegendFilter";
 import { saveTermsFlatListPreference } from "src/util/UISettingsUtil";
+import { Language } from "../util/Constants";
 
 export function asyncActionRequest(
   a: Action,
@@ -75,9 +76,9 @@ export function dismissMessage(message: Message): MessageAction {
   };
 }
 
-export function switchLanguage(language: string): SwitchLanguageAction {
-  saveLanguagePreference(language);
-  setHtmlLanguage(language);
+export function switchLanguage(language: Language): SwitchLanguageAction {
+  saveLanguagePreference(language.locale);
+  setHtmlLanguage(language.locale);
   return {
     type: ActionType.SWITCH_LANGUAGE,
     language,

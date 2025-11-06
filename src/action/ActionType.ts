@@ -10,6 +10,7 @@ import {
   AnnotationClass,
   AnnotationOrigin,
 } from "../model/AnnotatorLegendFilter";
+import { Language } from "../util/Constants";
 
 export interface PendingAsyncAction {
   status: AsyncActionStatus;
@@ -36,7 +37,7 @@ export interface MessageAction extends Action {
 }
 
 export interface SwitchLanguageAction extends Action {
-  language: string;
+  language: Language;
 }
 
 export interface SelectingTermsAction extends Action {

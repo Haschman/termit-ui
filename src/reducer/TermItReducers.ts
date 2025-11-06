@@ -117,7 +117,7 @@ function intl(
 ): IntlData {
   switch (action.type) {
     case ActionType.SWITCH_LANGUAGE:
-      return loadLocalizationData(action.language);
+      return loadLocalizationData(action.language.isoCode[0]);
     default:
       return state;
   }
