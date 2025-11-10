@@ -7,7 +7,7 @@ const ctx = {
     "@id": `${VocabularyUtils.PREFIX}m\u00e1-datum-a-\u010das-vytvo\u0159en\u00ed-verze`,
     "@type": VocabularyUtils.XSD_DATETIME,
   },
-  author: "http://rdfs.org/sioc/ns#has_creator",
+  author: "http://purl.org/dc/terms/creator",
   versionOf: `${VocabularyUtils.PREFIX}/je-verz\u00ed`,
 };
 
