@@ -3,7 +3,6 @@ import ActionType, {
   AsyncAction,
   AsyncActionSuccess,
   AsyncFailureAction,
-  ExecuteQueryAction,
   MessageAction,
   NotificationAction,
   SelectingTermsAction,
@@ -25,6 +24,7 @@ import {
   AnnotationOrigin,
 } from "../model/AnnotatorLegendFilter";
 import { saveTermsFlatListPreference } from "src/util/UISettingsUtil";
+import { Language } from "../util/Constants";
 
 export function asyncActionRequest(
   a: Action,
@@ -75,9 +75,9 @@ export function dismissMessage(message: Message): MessageAction {
   };
 }
 
-export function switchLanguage(language: string): SwitchLanguageAction {
-  saveLanguagePreference(language);
-  setHtmlLanguage(language);
+export function switchLanguage(language: Language): SwitchLanguageAction {
+  saveLanguagePreference(language.locale);
+  setHtmlLanguage(language.locale);
   return {
     type: ActionType.SWITCH_LANGUAGE,
     language,
@@ -87,18 +87,6 @@ export function switchLanguage(language: string): SwitchLanguageAction {
 export function userLogout(): Action {
   return {
     type: ActionType.LOGOUT,
-  };
-}
-
-export function executeQuerySuccess(
-  queryString: string,
-  result: object
-): ExecuteQueryAction {
-  return {
-    type: ActionType.EXECUTE_QUERY,
-    status: AsyncActionStatus.SUCCESS,
-    queryResult: result,
-    queryString,
   };
 }
 
