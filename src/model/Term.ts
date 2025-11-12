@@ -5,6 +5,7 @@ import {
   Editable,
   HasIdentifier,
 } from "./Asset";
+import { CONTEXT as USER_CONTEXT, UserData } from "./User";
 import Utils from "../util/Utils";
 import WithUnmappedProperties, {
   HasUnmappedProperties,
@@ -48,8 +49,10 @@ const ctx = {
 };
 
 export const CONTEXT = Object.assign(
+  {},
   ctx,
   ASSET_CONTEXT,
+  USER_CONTEXT,
   BASE_OCCURRENCE_CONTEXT
 );
 
@@ -293,6 +296,19 @@ export default class Term
       ? stringifyPropertyValue(
           this.unmappedProperties.get(VocabularyUtils.SNAPSHOT_CREATED)![0]
         )
+      : undefined;
+  }
+
+  public snapshotAuthor(): UserData | undefined {
+    const authorValues = this.unmappedProperties.get(
+      VocabularyUtils.SNAPSHOT_AUTHOR
+    );
+    if (!authorValues || authorValues.length === 0) {
+      return undefined;
+    }
+    const authorValue = authorValues[0];
+    return typeof authorValue === "object" && authorValue !== null
+      ? (authorValue as UserData)
       : undefined;
   }
 
