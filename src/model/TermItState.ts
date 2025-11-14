@@ -5,7 +5,7 @@ import IntlData from "./IntlData";
 import Vocabulary, { EMPTY_VOCABULARY } from "./Vocabulary";
 import { QueryResultIF } from "./QueryResult";
 import Term, { TermInfo } from "./Term";
-import RdfsResource, { RdfProperty } from "./RdfsResource";
+import RdfsResource, { CustomAttribute } from "./RdfsResource";
 import AppNotification from "./AppNotification";
 import SearchResult from "./search/SearchResult";
 import SearchQuery from "./search/SearchQuery";
@@ -44,7 +44,7 @@ export default class TermItState {
   // Identifiers of terminal states (a subset of all states)
   public terminalStates: string[];
   public properties: RdfsResource[];
-  public customAttributes: RdfProperty[];
+  public customAttributes: CustomAttribute[];
   // Represents a queue of inter-component notifications
   public notifications: AppNotification[];
   // Pending asynchronous actions. Can be used to prevent repeated requests when some are already pending

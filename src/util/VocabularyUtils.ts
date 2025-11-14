@@ -146,6 +146,7 @@ const VocabularyUtils = {
   DC_LANGUAGE: _NS_DC + "language",
   DC_IDENTIFIER: _NS_DC + "identifier",
   DC_SUBJECT: _NS_DC + "subject",
+  AS_RELATIONSHIP: _NS_ACTIVITY_STREAMS + "relationship",
 
   NS_XSD: _NS_XSD,
   XSD_DATETIME: _NS_XSD + "dateTime",

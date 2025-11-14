@@ -40,8 +40,8 @@ import ActionType, {
 import Resource, { ResourceData } from "../model/Resource";
 import RdfsResource, {
   CONTEXT as RDFS_RESOURCE_CONTEXT,
-  RdfProperty,
-  RdfPropertyData,
+  CustomAttribute,
+  CustomAttributeData,
   RdfsResourceData,
 } from "../model/RdfsResource";
 import TermItState from "../model/TermItState";
@@ -1139,15 +1139,15 @@ function createPropertyImpl(
 }
 
 export function getCustomAttributes() {
-  return getPropertiesImpl<RdfPropertyData, RdfProperty>(
+  return getPropertiesImpl<CustomAttributeData, CustomAttribute>(
     { type: ActionType.GET_CUSTOM_ATTRIBUTES },
     "/data/custom-attributes",
-    (d) => new RdfProperty(d),
+    (d) => new CustomAttribute(d),
     () => []
   );
 }
 
-export function createCustomAttribute(attribute: RdfProperty) {
+export function createCustomAttribute(attribute: CustomAttribute) {
   return createPropertyImpl(
     attribute,
     { type: ActionType.CREATE_CUSTOM_ATTRIBUTE },
@@ -1155,7 +1155,7 @@ export function createCustomAttribute(attribute: RdfProperty) {
   );
 }
 
-export function updateCustomAttribute(attribute: RdfProperty) {
+export function updateCustomAttribute(attribute: CustomAttribute) {
   const action = { type: ActionType.UPDATE_CUSTOM_ATTRIBUTE };
   return (dispatch: ThunkDispatch) => {
     dispatch(asyncActionRequest(action, true));
