@@ -256,6 +256,10 @@ const de = {
       "Attribut aktualisieren",
     "administration.customization.customAttributes.update.success":
       "Attribut erfolgreich aktualisiert.",
+    "administration.customization.customAttributes.annotatedRelationships":
+      "Anwendbar auf Beziehungseigenschaften",
+    "administration.customization.customAttributes.annotatedRelationships.help":
+      "Wählen Sie aus, welche Term-Beziehungseigenschaften dieses benutzerdefinierte Attribut annotieren kann. Gilt nur, wenn die Domäne 'Term-Beziehung' ist.",
     "asset.link.tooltip": "Details zu diesem Asset anzeigen",
     "asset.iri": "Kennung",
     "asset.create.iri.help":
@@ -777,6 +781,7 @@ const de = {
     "properties.edit.new.success": "Neues Attribut erfolgreich erstellt.",
     "type.asset": "Asset",
     "type.term": "Begriff",
+    "type.term.relationship": "Term-Beziehung",
     "type.vocabulary": "Vokabular",
     "type.resource": "Ressource",
     "type.document": "Dokument",

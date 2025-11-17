@@ -1,7 +1,11 @@
 import React from "react";
-import RdfsResource, { CustomAttribute } from "../../../model/RdfsResource";
+import RdfsResource, {
+  CustomAttribute,
+  RdfProperty,
+} from "../../../model/RdfsResource";
 import { useI18n } from "../../hook/useI18n";
 import MultilingualString, {
+  getLocalized,
   getLocalizedOrDefault,
   isLanguageBlank,
 } from "../../../model/MultilingualString";
@@ -17,6 +21,8 @@ import {
   CardBody,
   Col,
   Form,
+  FormGroup,
+  Label,
   Row,
 } from "reactstrap";
 import CustomInput from "../../misc/CustomInput";
@@ -36,6 +42,7 @@ import { trackPromise } from "react-promise-tracker";
 import { ThunkDispatch } from "../../../util/Types";
 import {
   createCustomAttribute,
+  getProperties,
   updateCustomAttribute,
 } from "../../../action/AsyncActions";
 import PromiseTrackingMask from "../../misc/PromiseTrackingMask";
@@ -43,6 +50,9 @@ import { useParams } from "react-router-dom";
 import VocabularyUtils from "../../../util/VocabularyUtils";
 import { loadIdentifier } from "../../asset/CreateAssetUtils";
 import ShowAdvancedAssetFields from "src/component/asset/ShowAdvancedAssetFields";
+import { IntelligentTreeSelect } from "intelligent-tree-select";
+import HelpIcon from "../../misc/HelpIcon";
+import { SelectorOption } from "./CustomAttributeSelector";
 
 function propertyWithLabelExists(
   label: string,
@@ -54,6 +64,45 @@ function propertyWithLabelExists(
     customAttributes.some((p) => (p.label || {})[language] === label) ||
     properties.some((p) => (p.label || {})[language] === label)
   );
+}
+
+function extractIri(
+  relationship: { iri?: string; "@id"?: string } | string
+): string {
+  if (typeof relationship === "string") {
+    return relationship;
+  }
+  return relationship.iri || relationship["@id"] || "";
+}
+
+function getTermRelationshipProperties(
+  properties: RdfProperty[],
+  customAttributes: CustomAttribute[],
+  language: string
+): SelectorOption[] {
+  const basicOptions = properties
+    .filter(
+      (p) =>
+        p.domainIri === VocabularyUtils.TERM &&
+        p.rangeIri === VocabularyUtils.TERM
+    )
+    .map((p) => ({
+      value: p.iri,
+      label: getLocalized(p.label, language) || p.iri,
+    }));
+
+  const customOptions = customAttributes
+    .filter(
+      (ca) =>
+        ca.domainIri === VocabularyUtils.TERM &&
+        ca.rangeIri === VocabularyUtils.TERM
+    )
+    .map((ca) => ({
+      value: ca.iri,
+      label: getLocalized(ca.label, language) || ca.iri,
+    }));
+
+  return [...basicOptions, ...customOptions];
 }
 
 export const CustomAttributeEdit: React.FC = () => {
@@ -70,6 +119,9 @@ export const CustomAttributeEdit: React.FC = () => {
   const [language, setLanguage] = React.useState(getShortLocale(locale));
   const [iri, setIri] = React.useState("");
   const [shouldGenerateIri, setShouldGenerateIri] = React.useState(true);
+  const [annotatedRelationships, setAnnotatedRelationships] = React.useState<
+    string[]
+  >([]);
   const customAttributes = useSelector(
     (state: TermItState) => state.customAttributes
   );
@@ -82,6 +134,21 @@ export const CustomAttributeEdit: React.FC = () => {
     [customAttributes, name]
   );
   const editingMode = React.useMemo(() => name !== "create", [name]);
+
+  const termRelationshipOptions = React.useMemo(
+    () =>
+      getTermRelationshipProperties(
+        properties,
+        customAttributes,
+        getShortLocale(locale)
+      ),
+    [properties, customAttributes, locale]
+  );
+
+  React.useEffect(() => {
+    dispatch(getProperties());
+  }, [dispatch]);
+
   React.useEffect(() => {
     if (editingMode) {
       if (editedAttribute) {
@@ -91,6 +158,13 @@ export const CustomAttributeEdit: React.FC = () => {
         setComment(editedAttribute.comment || {});
         setDomain(editedAttribute.domainIri || "");
         setRange(editedAttribute.rangeIri || "");
+
+        const relationships = editedAttribute.annotatedRelationships;
+        if (relationships && Array.isArray(relationships)) {
+          setAnnotatedRelationships(relationships.map(extractIri));
+        } else {
+          setAnnotatedRelationships([]);
+        }
       }
       setShouldGenerateIri(false);
     }
@@ -157,6 +231,11 @@ export const CustomAttributeEdit: React.FC = () => {
 
   const onSave = () => {
     let promise;
+    const annotatedRelationshipsData =
+      domain === VocabularyUtils.RDF_STATEMENT
+        ? annotatedRelationships.map((iri) => ({ iri }))
+        : undefined;
+
     if (editingMode) {
       const data = new CustomAttribute({
         ...editedAttribute!,
@@ -164,6 +243,7 @@ export const CustomAttributeEdit: React.FC = () => {
         comment,
         domain,
         range,
+        annotatedRelationships: annotatedRelationshipsData,
       });
       promise = dispatch(updateCustomAttribute(data));
     } else {
@@ -175,6 +255,7 @@ export const CustomAttributeEdit: React.FC = () => {
             comment,
             domain,
             range,
+            annotatedRelationships: annotatedRelationshipsData,
             types: [VocabularyUtils.NS_TERMIT + "vlastní-atribut"],
           })
         )
@@ -270,6 +351,50 @@ export const CustomAttributeEdit: React.FC = () => {
                 />
               </Col>
             </Row>
+            {domain === VocabularyUtils.RDF_STATEMENT && (
+              <Row>
+                <Col xs={12}>
+                  <FormGroup>
+                    <Label className="attribute-label">
+                      {i18n(
+                        "administration.customization.customAttributes.annotatedRelationships"
+                      )}
+                      <HelpIcon
+                        id="annotated-relationships-help"
+                        text={i18n(
+                          "administration.customization.customAttributes.annotatedRelationships.help"
+                        )}
+                      />
+                    </Label>
+                    <IntelligentTreeSelect
+                      id="custom-attribute-annotated-relationships"
+                      options={termRelationshipOptions}
+                      value={annotatedRelationships.map(
+                        (iri) =>
+                          termRelationshipOptions.find(
+                            (opt) => opt.value === iri
+                          ) || {
+                            value: iri,
+                            label: iri,
+                          }
+                      )}
+                      valueKey="value"
+                      labelKey="label"
+                      multi={true}
+                      simpleTreeData={true}
+                      onChange={(selected: any) =>
+                        setAnnotatedRelationships(
+                          selected ? selected.map((s: any) => s.value) : []
+                        )
+                      }
+                      classNamePrefix="react-select"
+                      placeholder={i18n("select.placeholder")}
+                      isDisabled={editingMode}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+            )}
             <ShowAdvancedAssetFields>
               <Row>
                 <Col xs={12}>

@@ -31,7 +31,10 @@ import AsyncActionStatus from "../action/AsyncActionStatus";
 import Vocabulary, { EMPTY_VOCABULARY } from "../model/Vocabulary";
 import { default as QueryResult, QueryResultIF } from "../model/QueryResult";
 import Term, { TermInfo } from "../model/Term";
-import RdfsResource, { CustomAttribute } from "../model/RdfsResource";
+import RdfsResource, {
+  CustomAttribute,
+  RdfProperty,
+} from "../model/RdfsResource";
 import AppNotification from "../model/AppNotification";
 import SearchResult from "../model/search/SearchResult";
 import SearchQuery from "../model/search/SearchQuery";
@@ -408,12 +411,12 @@ function terminalStates(
 }
 
 function properties(
-  state: RdfsResource[] = [],
-  action: AsyncActionSuccess<RdfsResource[]> | Action
-): RdfsResource[] {
+  state: RdfProperty[] = [],
+  action: AsyncActionSuccess<RdfProperty[]> | Action
+): RdfProperty[] {
   switch (action.type) {
     case ActionType.GET_PROPERTIES:
-      const asyncAction = action as AsyncActionSuccess<RdfsResource[]>;
+      const asyncAction = action as AsyncActionSuccess<RdfProperty[]>;
       return isAsyncSuccess(asyncAction) ? asyncAction.payload : state;
     case ActionType.CLEAR_PROPERTIES:
       return [];

@@ -5,7 +5,7 @@ import IntlData from "./IntlData";
 import Vocabulary, { EMPTY_VOCABULARY } from "./Vocabulary";
 import { QueryResultIF } from "./QueryResult";
 import Term, { TermInfo } from "./Term";
-import RdfsResource, { CustomAttribute } from "./RdfsResource";
+import RdfsResource, { CustomAttribute, RdfProperty } from "./RdfsResource";
 import AppNotification from "./AppNotification";
 import SearchResult from "./search/SearchResult";
 import SearchQuery from "./search/SearchQuery";
@@ -43,7 +43,7 @@ export default class TermItState {
   public states: { [key: string]: RdfsResource };
   // Identifiers of terminal states (a subset of all states)
   public terminalStates: string[];
-  public properties: RdfsResource[];
+  public properties: RdfProperty[];
   public customAttributes: CustomAttribute[];
   // Represents a queue of inter-component notifications
   public notifications: AppNotification[];
