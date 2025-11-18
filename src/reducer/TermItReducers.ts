@@ -31,7 +31,7 @@ import AsyncActionStatus from "../action/AsyncActionStatus";
 import Vocabulary, { EMPTY_VOCABULARY } from "../model/Vocabulary";
 import { default as QueryResult, QueryResultIF } from "../model/QueryResult";
 import Term, { TermInfo } from "../model/Term";
-import RdfsResource, { RdfProperty } from "../model/RdfsResource";
+import RdfsResource, { CustomAttribute } from "../model/RdfsResource";
 import AppNotification from "../model/AppNotification";
 import SearchResult from "../model/search/SearchResult";
 import SearchQuery from "../model/search/SearchQuery";
@@ -423,12 +423,12 @@ function properties(
 }
 
 function customAttributes(
-  state: RdfProperty[] = [],
-  action: AsyncActionSuccess<RdfProperty[]> | Action
-): RdfProperty[] {
+  state: CustomAttribute[] = [],
+  action: AsyncActionSuccess<CustomAttribute[]> | Action
+): CustomAttribute[] {
   switch (action.type) {
     case ActionType.GET_CUSTOM_ATTRIBUTES:
-      const asyncAction = action as AsyncActionSuccess<RdfProperty[]>;
+      const asyncAction = action as AsyncActionSuccess<CustomAttribute[]>;
       return isAsyncSuccess(action) ? asyncAction.payload : state;
     case ActionType.CREATE_CUSTOM_ATTRIBUTE:
       return isAsyncSuccess(action) ? [] : state;

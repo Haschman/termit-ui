@@ -1,5 +1,5 @@
 import React from "react";
-import RdfsResource, { RdfProperty } from "../../../model/RdfsResource";
+import RdfsResource, { CustomAttribute } from "../../../model/RdfsResource";
 import { useI18n } from "../../hook/useI18n";
 import MultilingualString, {
   getLocalizedOrDefault,
@@ -48,7 +48,7 @@ function propertyWithLabelExists(
   label: string,
   language: string,
   properties: RdfsResource[],
-  customAttributes: RdfProperty[]
+  customAttributes: CustomAttribute[]
 ) {
   return (
     customAttributes.some((p) => (p.label || {})[language] === label) ||
@@ -158,7 +158,7 @@ export const CustomAttributeEdit: React.FC = () => {
   const onSave = () => {
     let promise;
     if (editingMode) {
-      const data = new RdfProperty({
+      const data = new CustomAttribute({
         ...editedAttribute!,
         label,
         comment,
@@ -169,7 +169,7 @@ export const CustomAttributeEdit: React.FC = () => {
     } else {
       promise = dispatch(
         createCustomAttribute(
-          new RdfProperty({
+          new CustomAttribute({
             iri,
             label,
             comment,
