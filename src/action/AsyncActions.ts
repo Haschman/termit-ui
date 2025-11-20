@@ -43,8 +43,6 @@ import RdfsResource, {
   CustomAttribute,
   CustomAttributeData,
   RdfsResourceData,
-  RdfProperty,
-  RdfPropertyData,
 } from "../model/RdfsResource";
 import TermItState from "../model/TermItState";
 import Utils from "../util/Utils";
@@ -1074,10 +1072,10 @@ export function getProperties() {
   const action = {
     type: ActionType.GET_PROPERTIES,
   };
-  return getPropertiesImpl<RdfPropertyData, RdfProperty>(
+  return getPropertiesImpl<RdfsResourceData, RdfsResource>(
     action,
     "/data/properties",
-    (d) => new RdfProperty(d),
+    (d) => new RdfsResource(d),
     (state) => state.properties
   );
 }

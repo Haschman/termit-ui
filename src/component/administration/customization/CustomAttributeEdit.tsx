@@ -1,8 +1,5 @@
 import React from "react";
-import RdfsResource, {
-  CustomAttribute,
-  RdfProperty,
-} from "../../../model/RdfsResource";
+import RdfsResource, { CustomAttribute } from "../../../model/RdfsResource";
 import { useI18n } from "../../hook/useI18n";
 import MultilingualString, {
   getLocalized,
@@ -42,7 +39,7 @@ import { trackPromise } from "react-promise-tracker";
 import { ThunkDispatch } from "../../../util/Types";
 import {
   createCustomAttribute,
-  getProperties,
+  getCustomAttributes,
   updateCustomAttribute,
 } from "../../../action/AsyncActions";
 import PromiseTrackingMask from "../../misc/PromiseTrackingMask";
@@ -53,6 +50,34 @@ import ShowAdvancedAssetFields from "src/component/asset/ShowAdvancedAssetFields
 import { IntelligentTreeSelect } from "intelligent-tree-select";
 import HelpIcon from "../../misc/HelpIcon";
 import { SelectorOption } from "./CustomAttributeSelector";
+
+const SKOS_TERM_RELATIONSHIP_PROPERTIES = [
+  {
+    iris: [
+      "http://www.w3.org/2004/02/skos/core#related",
+      "http://www.w3.org/2004/02/skos/core#relatedMatch",
+    ],
+    labelKey: "term.metadata.related.title",
+  },
+  {
+    iris: [
+      "http://www.w3.org/2004/02/skos/core#broader",
+      "http://www.w3.org/2004/02/skos/core#broadMatch",
+    ],
+    labelKey: "term.metadata.parent",
+  },
+  {
+    iris: [
+      "http://www.w3.org/2004/02/skos/core#narrower",
+      "http://www.w3.org/2004/02/skos/core#narrowMatch",
+    ],
+    labelKey: "term.metadata.subTerms",
+  },
+  {
+    iris: ["http://www.w3.org/2004/02/skos/core#exactMatch"],
+    labelKey: "term.metadata.exactMatches",
+  },
+];
 
 function propertyWithLabelExists(
   label: string,
@@ -66,30 +91,15 @@ function propertyWithLabelExists(
   );
 }
 
-function extractIri(
-  relationship: { iri?: string; "@id"?: string } | string
-): string {
-  if (typeof relationship === "string") {
-    return relationship;
-  }
-  return relationship.iri || relationship["@id"] || "";
-}
-
 function getTermRelationshipProperties(
-  properties: RdfProperty[],
   customAttributes: CustomAttribute[],
-  language: string
+  language: string,
+  i18n: (key: string) => string
 ): SelectorOption[] {
-  const basicOptions = properties
-    .filter(
-      (p) =>
-        p.domainIri === VocabularyUtils.TERM &&
-        p.rangeIri === VocabularyUtils.TERM
-    )
-    .map((p) => ({
-      value: p.iri,
-      label: getLocalized(p.label, language) || p.iri,
-    }));
+  const basicOptions = SKOS_TERM_RELATIONSHIP_PROPERTIES.map((p) => ({
+    value: p.iris.join(","),
+    label: i18n(p.labelKey),
+  }));
 
   const customOptions = customAttributes
     .filter(
@@ -138,15 +148,15 @@ export const CustomAttributeEdit: React.FC = () => {
   const termRelationshipOptions = React.useMemo(
     () =>
       getTermRelationshipProperties(
-        properties,
         customAttributes,
-        getShortLocale(locale)
+        getShortLocale(locale),
+        i18n
       ),
-    [properties, customAttributes, locale]
+    [customAttributes, locale, i18n]
   );
 
   React.useEffect(() => {
-    dispatch(getProperties());
+    dispatch(getCustomAttributes());
   }, [dispatch]);
 
   React.useEffect(() => {
@@ -161,7 +171,30 @@ export const CustomAttributeEdit: React.FC = () => {
 
         const relationships = editedAttribute.annotatedRelationships;
         if (relationships && Array.isArray(relationships)) {
-          setAnnotatedRelationships(relationships.map(extractIri));
+          const iris = relationships.map((r) =>
+            typeof r === "string" ? r : r.iri || (r as any)["@id"] || ""
+          );
+
+          const groupedIris: string[] = [];
+          const processedIris = new Set<string>();
+
+          iris.forEach((iri) => {
+            if (processedIris.has(iri)) return;
+
+            const group = SKOS_TERM_RELATIONSHIP_PROPERTIES.find((p) =>
+              p.iris.includes(iri)
+            );
+
+            if (group) {
+              groupedIris.push(group.iris.join(","));
+              group.iris.forEach((i) => processedIris.add(i));
+            } else {
+              groupedIris.push(iri);
+              processedIris.add(iri);
+            }
+          });
+
+          setAnnotatedRelationships(groupedIris);
         } else {
           setAnnotatedRelationships([]);
         }
@@ -233,7 +266,11 @@ export const CustomAttributeEdit: React.FC = () => {
     let promise;
     const annotatedRelationshipsData =
       domain === VocabularyUtils.RDF_STATEMENT
-        ? annotatedRelationships.map((iri) => ({ iri }))
+        ? annotatedRelationships.flatMap((value) =>
+            value.includes(",")
+              ? value.split(",").map((iri) => ({ iri }))
+              : [{ iri: value }]
+          )
         : undefined;
 
     if (editingMode) {
