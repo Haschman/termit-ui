@@ -260,6 +260,10 @@ const cs = {
     "administration.customization.customAttributes.update": "Upravit atribut",
     "administration.customization.customAttributes.update.success":
       "Atribut byl úspěšně upraven.",
+    "administration.customization.customAttributes.annotatedRelationships":
+      "Vztahuje se na vlastnosti vztahů",
+    "administration.customization.customAttributes.annotatedRelationships.help":
+      "Vyberte, které vlastnosti vztahů mezi pojmy může tento vlastní atribut anotovat. Platí pouze když doména je 'Vztah mezi pojmy'.",
     "asset.link.tooltip": "Zobrazit detail záznamu",
     "asset.iri": "Identifikátor",
     "asset.create.iri.help":
@@ -828,6 +832,7 @@ const cs = {
 
     "type.asset": "Záznam",
     "type.term": "Pojem",
+    "type.term.relationship": "Vztah mezi pojmy",
     "type.vocabulary": "Slovník",
     "type.resource": "Zdroj",
     "type.document": "Dokument",
