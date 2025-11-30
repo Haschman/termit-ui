@@ -665,6 +665,8 @@ const de = {
     "search.faceted.matchType.substring": "Teilzeichenfolge",
     "search.faceted.no-results":
       "Für die angegebenen Parameter wurden keine weiteren Ergebnisse gefunden.",
+    "search.faceted.relationshipAnnotation":
+      "Beziehung annotiert durch Begriff",
     "profile.first.name": "Vorname",
     "profile.last.name": "Nachname",
     "profile.legend.invalid.name":

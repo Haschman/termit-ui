@@ -715,6 +715,7 @@ const cs = {
     "search.faceted.matchType.substring": "Částečná shoda",
     "search.faceted.no-results":
       "Zadaným parametrů neodpovídají již žádná další data.",
+    "search.faceted.relationshipAnnotation": "Vztah anotovaný pojmem",
 
     "profile.first.name": "Křestní jméno",
     "profile.last.name": "Příjmení",
