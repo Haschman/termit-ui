@@ -705,6 +705,7 @@ const en = {
     "search.faceted.matchType.substring": "Substring",
     "search.faceted.no-results":
       "No more results found for the specified parameters.",
+    "search.faceted.relationshipAnnotation": "Relationship annotated by term",
 
     "profile.first.name": "First name",
     "profile.last.name": "Last name",
