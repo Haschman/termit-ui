@@ -9,7 +9,7 @@
     "@formatjs/intl-relativetimeformat": "11.4.13",
     "@fortawesome/fontawesome-free": "7.1.0",
     "@opendata-mvcr/assembly-line-shared": "^0.3.2",
-    "apexcharts": "^4.4.0",
+    "apexcharts": "5.3.6",
     "axios": "^1.13.2",
     "classnames": "^2.5.1",
     "dom-serializer": "2.0.0",
