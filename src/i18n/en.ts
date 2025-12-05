@@ -17,6 +17,10 @@ const en = {
     description: "Description",
     submit: "Submit",
     approve: "Approve",
+    backups: "Backups",
+    date: "Date",
+    time: "Time",
+    close: "Close",
     "basic-information": "Basic Information",
     "created-info": "Created by {author} on {date}",
     "select.placeholder": "Select...",
@@ -248,6 +252,10 @@ const en = {
     "administration.customization.customAttributes.update": "Update attribute",
     "administration.customization.customAttributes.update.success":
       "Attribute successfully updated.",
+    "administration.customization.customAttributes.annotatedRelationships":
+      "Applicable to relationship properties",
+    "administration.customization.customAttributes.annotatedRelationships.help":
+      "Select which term relationship properties this custom attribute can annotate. Only applicable when domain is 'Term relationship'.",
     "asset.link.tooltip": "View detail of this asset",
     "asset.iri": "Identifier",
     "asset.create.iri.help":
@@ -479,6 +487,17 @@ const en = {
     "resource.metadata.document.files.empty":
       "No files found. Start by adding some.",
     "resource.file.vocabulary.create": "Add File",
+    "resource.file.backup.reason": "Backup reason",
+    "resource.file.backup.reason.reupload": "Reupload",
+    "resource.file.backup.reason.text_analysis": "Text analysis",
+    "resource.file.backup.reason.new_occurrence": "New occurrence",
+    "resource.file.backup.reason.remove_occurrence": "Occurrence removal",
+    "resource.file.backup.reason.scheduled": "Scheduled",
+    "resource.file.backup.reason.backup_restore": "Backup restored",
+    "resource.file.backup.reason.unknown": "Unknown",
+    "resource.file.backup.restore": "Restore backup",
+    "resource.file.backup.restore.failure": "Failed to restore the backup",
+    "resource.file.backup.restore.success": "The backup is being restored",
 
     "term.language.selector.item":
       "View term data in language: {nativeLang} ({lang})",
@@ -589,6 +608,14 @@ const en = {
     "term.metadata.types.select.placeholder": "Select type",
     "term.metadata.validation.title": "Validation",
     "term.metadata.validation.empty": "The term does not have any issues.",
+    "term.metadata.relationshipAnnotation": "Relationship annotations",
+    "term.metadata.relationshipAnnotation.save.success":
+      "Term relationship annotation successfully saved",
+    "term.metadata.annotatedRelationships": "Annotated relationships",
+    "term.metadata.annotatedRelationships.help":
+      "Term relationships annotated by this term",
+    "term.metadata.annotatedRelationships.empty":
+      "Term is not used to annotated any term relationships.",
     "term.removed.message": "Term successfully removed.",
     "term.badge.score.tooltip":
       "The score of this term is {score}%. Click to see the validation results",
@@ -698,6 +725,7 @@ const en = {
     "search.faceted.matchType.substring": "Substring",
     "search.faceted.no-results":
       "No more results found for the specified parameters.",
+    "search.faceted.relationshipAnnotation": "Relationship annotated by term",
 
     "profile.first.name": "First name",
     "profile.last.name": "Last name",
@@ -820,6 +848,7 @@ const en = {
 
     "type.asset": "Asset",
     "type.term": "Term",
+    "type.term.relationship": "Term relationship",
     "type.vocabulary": "Vocabulary",
     "type.resource": "Resource",
     "type.document": "Document",
@@ -958,6 +987,7 @@ const en = {
     "longrunningtasks.name.vocabularyValidation": "Vocabulary validation",
     "longrunningtasks.name.documentAnnotationGeneration":
       "Generation of a file annotations",
+    "longrunningtasks.name.restoreBackup": "Backup restoration",
   },
 };
 

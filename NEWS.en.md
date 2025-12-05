@@ -1,3 +1,9 @@
+#### Version 4.3.0
+
+- Provide access to document backups, support their download and restoration.
+- Support annotating relationships between terms (using custom attributes). Data are stored as RDF-star.
+- Extend faceted search with support for term relationships annotations.
+
 #### Version 4.2.0
 
 - Added support for using a SPARQL endpoint to import vocabularies (read-only).

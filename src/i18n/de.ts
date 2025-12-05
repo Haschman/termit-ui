@@ -17,6 +17,10 @@ const de = {
     description: "Beschreibung",
     submit: "Absenden",
     approve: "Genehmigen",
+    backups: "Sicherungen",
+    date: "Datum",
+    time: "Uhrzeit",
+    close: "Schließen",
     "basic-information": "Grundlegende Informationen",
     "created-info": "Erstellt von {author} am {date}",
     "select.placeholder": "Wählen...",
@@ -256,6 +260,10 @@ const de = {
       "Attribut aktualisieren",
     "administration.customization.customAttributes.update.success":
       "Attribut erfolgreich aktualisiert.",
+    "administration.customization.customAttributes.annotatedRelationships":
+      "Anwendbar auf Beziehungseigenschaften",
+    "administration.customization.customAttributes.annotatedRelationships.help":
+      "Wählen Sie aus, welche Term-Beziehungseigenschaften dieses benutzerdefinierte Attribut annotieren kann. Gilt nur, wenn die Domäne 'Term-Beziehung' ist.",
     "asset.link.tooltip": "Details zu diesem Asset anzeigen",
     "asset.iri": "Kennung",
     "asset.create.iri.help":
@@ -476,6 +484,19 @@ const de = {
     "resource.metadata.document.files.actions.add.dialog.title": "Neue Datei",
     "resource.metadata.document.files.empty": "Keine Dateien gefunden. ",
     "resource.file.vocabulary.create": "Datei hinzufügen",
+    "resource.file.backup.reason": "Entstehungsgrund",
+    "resource.file.backup.reason.reupload": "Erneuter Upload",
+    "resource.file.backup.reason.text_analysis": "Textanalyse",
+    "resource.file.backup.reason.new_occurrence": "Neues Vorkommen",
+    "resource.file.backup.reason.remove_occurrence": "Vorkommen entfernt",
+    "resource.file.backup.reason.scheduled": "Geplant",
+    "resource.file.backup.reason.backup_restore": "Backup wiederhergestellt",
+    "resource.file.backup.reason.unknown": "Unbekannt",
+    "resource.file.backup.restore": "Sicherung wiederherstellen",
+    "resource.file.backup.restore.failure":
+      "Die Wiederherstellung der Sicherung ist fehlgeschlagen.",
+    "resource.file.backup.restore.success": "Die Sicherung wird erneuert",
+
     "term.language.selector.item":
       "Begriffsdaten in der Sprache anzeigen: {nativeLang} ({lang})",
     "term.language.add.placeholder": "Wählen...",
@@ -553,9 +574,18 @@ const de = {
     "term.metadata.types.select.placeholder": "Typ auswählen",
     "term.metadata.validation.title": "Validierung",
     "term.metadata.validation.empty": "Der Begriff ist unproblematisch.",
+    "term.metadata.relationshipAnnotation": "Beziehung annotieren",
+    "term.metadata.relationshipAnnotation.save.success":
+      "Beziehungsannotation des Terms wurde erfolgreich gespeichert",
+    "term.metadata.annotatedRelationships": "Annotierte Beziehungen",
+    "term.metadata.annotatedRelationships.help":
+      "Beziehungen, die an diesem Begriff annotiert wurden",
+    "term.metadata.annotatedRelationships.empty":
+      "Keine Beziehungen annotiert.",
     "term.removed.message": "Begriff erfolgreich entfernt.",
     "term.badge.score.tooltip": "Der Wert dieses Begriffs beträgt {score} %. ",
     "term.badge.no-score.tooltip": "Für diesen Begriff ist kein Wert verfügbar",
+
     "glossary.title": "Bedingungen",
     "glossary.termCount.tooltip":
       "Anzahl der Begriffe im Vokabular (ohne importierte Vokabeln)",
@@ -657,6 +687,8 @@ const de = {
     "search.faceted.matchType.substring": "Teilzeichenfolge",
     "search.faceted.no-results":
       "Für die angegebenen Parameter wurden keine weiteren Ergebnisse gefunden.",
+    "search.faceted.relationshipAnnotation":
+      "Beziehung annotiert durch Begriff",
     "profile.first.name": "Vorname",
     "profile.last.name": "Nachname",
     "profile.legend.invalid.name":
@@ -777,6 +809,7 @@ const de = {
     "properties.edit.new.success": "Neues Attribut erfolgreich erstellt.",
     "type.asset": "Asset",
     "type.term": "Begriff",
+    "type.term.relationship": "Term-Beziehung",
     "type.vocabulary": "Vokabular",
     "type.resource": "Ressource",
     "type.document": "Dokument",
@@ -898,6 +931,7 @@ const de = {
     "longrunningtasks.name.vocabularyValidation": "Vokabularüberprüfung",
     "longrunningtasks.name.documentAnnotationGeneration":
       "Erstellung einer Dateianmerkung",
+    "longrunningtasks.name.restoreBackup": "Wiederherstellung von Sicherung",
   },
 };
 

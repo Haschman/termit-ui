@@ -17,6 +17,10 @@ const cs = {
     description: "Popis",
     submit: "Předložit",
     approve: "Schválit",
+    backups: "Zálohy",
+    date: "Datum",
+    time: "Čas",
+    close: "Zavřít",
     "basic-information": "Základní informace",
     "created-info": "Vytvořeno uživatelem {author} dne {date}",
     "select.placeholder": "Vyberte...",
@@ -260,6 +264,10 @@ const cs = {
     "administration.customization.customAttributes.update": "Upravit atribut",
     "administration.customization.customAttributes.update.success":
       "Atribut byl úspěšně upraven.",
+    "administration.customization.customAttributes.annotatedRelationships":
+      "Vztahuje se na vlastnosti vztahů",
+    "administration.customization.customAttributes.annotatedRelationships.help":
+      "Vyberte, které vlastnosti vztahů mezi pojmy může tento vlastní atribut anotovat. Platí pouze když doména je 'Vztah mezi pojmy'.",
     "asset.link.tooltip": "Zobrazit detail záznamu",
     "asset.iri": "Identifikátor",
     "asset.create.iri.help":
@@ -485,6 +493,17 @@ const cs = {
     "resource.metadata.document.files.empty":
       "Žádné soubory nenalezeny. Přidejte nějaký...",
     "resource.file.vocabulary.create": "Přidat soubor",
+    "resource.file.backup.reason": "Důvod vytvoření",
+    "resource.file.backup.reason.reupload": "Reupload",
+    "resource.file.backup.reason.text_analysis": "Textová analýza",
+    "resource.file.backup.reason.new_occurrence": "Nový výskyt",
+    "resource.file.backup.reason.remove_occurrence": "Smazání výskytu",
+    "resource.file.backup.reason.scheduled": "Pravidelná záloha",
+    "resource.file.backup.reason.backup_restore": "Obnova zálohy",
+    "resource.file.backup.reason.unknown": "Neznámý",
+    "resource.file.backup.restore": "Obnovit zálohu",
+    "resource.file.backup.restore.failure": "Zálohu se nepodařilo obnovit",
+    "resource.file.backup.restore.success": "Záloha se obnovuje",
 
     "term.language.selector.item":
       "Zobrazit data pojmu v jazyce: {nativeLang} ({lang})",
@@ -596,6 +615,14 @@ const cs = {
     "term.metadata.types.select.placeholder": "Vyberte typ",
     "term.metadata.validation.title": "Kontrola",
     "term.metadata.validation.empty": "Pojem je bez chyb.",
+    "term.metadata.relationshipAnnotation": "Anotace vztahu",
+    "term.metadata.relationshipAnnotation.save.success":
+      "Anotace vztahu pojmu úspěšně uložena",
+    "term.metadata.annotatedRelationships": "Anotované vztahy",
+    "term.metadata.annotatedRelationships.help":
+      "Vztahy mezi pojmy anotované tímto pojmem",
+    "term.metadata.annotatedRelationships.empty":
+      "Tímto pojmem nejsou anotovány žádné vztahy mezi pojmy.",
     "term.removed.message": "Pojem byl odstraněn.",
     "term.badge.score.tooltip":
       "Skóre tohoto pojmu je {score}%. Klikněte pro zobrazení výsledků kontroly",
@@ -708,6 +735,7 @@ const cs = {
     "search.faceted.matchType.substring": "Částečná shoda",
     "search.faceted.no-results":
       "Zadaným parametrů neodpovídají již žádná další data.",
+    "search.faceted.relationshipAnnotation": "Vztah anotovaný pojmem",
 
     "profile.first.name": "Křestní jméno",
     "profile.last.name": "Příjmení",
@@ -828,6 +856,7 @@ const cs = {
 
     "type.asset": "Záznam",
     "type.term": "Pojem",
+    "type.term.relationship": "Vztah mezi pojmy",
     "type.vocabulary": "Slovník",
     "type.resource": "Zdroj",
     "type.document": "Dokument",
@@ -967,6 +996,7 @@ const cs = {
     "longrunningtasks.name.vocabularyValidation": "Validace slovníku",
     "longrunningtasks.name.documentAnnotationGeneration":
       "Generování anotací dokumentu",
+    "longrunningtasks.name.restoreBackup": "Obnovení zálohy",
   },
 };
 
