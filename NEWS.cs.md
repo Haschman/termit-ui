@@ -1,3 +1,9 @@
+#### Verze 4.3.0
+
+- Byly zpřístupněny zálohy dokumentů a přidána možnost tyto zálohy stáhnout či jimi nahradit současný obsah.
+- Přidána podpora anotace vztahů mezi pojmy (pomocí vlastních atributů). Tyto anotace jsou ukládány pomocí RDF-star.
+- Fasetové vyhledávání rozšířeno o podporu anotací vztahů mezi pojmy.
+
 #### Verze 4.2.0
 
 - Přidána podpora pro definici externího SPARQL endpointu, ze kterého lze importovat slovníky (pouze pro čtení).
