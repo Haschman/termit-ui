@@ -269,7 +269,10 @@ export default class TextSelection {
       oldOffset = this.range.endOffset;
       const { endContainer, endOffset } = this.range;
       const newOffset = endOffset + 1;
-      if (newOffset >= this.getEndText().length) {
+      // This should theoretically throw an exception, because endOffset is equal
+      // to the node end, but it works in Chrome and Firefox and correctly extends
+      // the range to the end of the text node
+      if (newOffset > this.getEndText().length) {
         if (this.moveEndToNextTextNode()) {
           continue;
         } else {
