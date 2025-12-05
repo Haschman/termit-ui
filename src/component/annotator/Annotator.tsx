@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Element, Node as DomHandlerNode } from "domhandler";
+import { Element, ChildNode as DomHandlerNode } from "domhandler";
 import HtmlParserUtils from "./HtmlParserUtils";
 import AnnotationDomHelper, { AnnotationType } from "./AnnotationDomHelper";
 import Term from "../../model/Term";
