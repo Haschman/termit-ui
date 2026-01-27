@@ -21,6 +21,8 @@ const cs = {
     date: "Datum",
     time: "Čas",
     close: "Zavřít",
+    copy: "Zkopírovat",
+    "copy.success": "Zkopírováno!",
     "basic-information": "Základní informace",
     "created-info": "Vytvořeno uživatelem {author} dne {date}",
     "select.placeholder": "Vyberte...",
@@ -661,7 +663,7 @@ const cs = {
     "glossary.createTerm.breadcrumb": "Vytvořit pojem",
     "glossary.form.header": "Vytvořit nový pojem",
     "glossary.form.tooltipLabel":
-      "Nanašli jste pojem, který jste hledali? Vytvořte nový.",
+      "Nenašli jste pojem, který jste hledali? Vytvořte nový.",
     "glossary.form.field.parent": "Nadřazený pojem",
     "glossary.form.field.source": "Zdroj pojmu",
     "glossary.form.field.type": "Typ pojmu",
@@ -743,6 +745,21 @@ const cs = {
     "profile.updated.message": "Profil byl úspěšně aktualizován",
     "profile.change-password": "Změnit heslo",
 
+    "profile.pat.title": "Osobní přístupové klíče",
+    "profile.pat.created": "Vytvořen",
+    "profile.pat.lastUsed": "Naposledy použit",
+    "profile.pat.expiration": "Platný do",
+    "profile.pat.noTokens": "Žádný klíč ještě nebyl vytvořen",
+    "profile.pat.action.create.title": "Vytvořit nový přístupový klíč",
+    "profile.pat.action.remove.title": "Odstraní a zneplatní přístupový klíč",
+    "profile.pat.action.noExpiration": "Odebrat omezení platnosti",
+    "profile.pat.error.invalidDate": "Neplatné datum!",
+    "profile.pat.error.notFuture": "Datum musí být v budoucnosti!",
+    "profile.pat.success.created": "Přístupový klíč vytvořen",
+    "profile.pat.delete.confirm": "Opravdu chcete odstranit přístupový token?",
+    "profile.pat.delete.confirm.description":
+      "Token bude okamžitě zneplatněn a nebude možné jej nadále používat. Tato akce je nevratná!",
+
     "change-password.current.password": "Současné heslo",
     "change-password.new.password": "Nové heslo",
     "change-password.confirm.password": "Potvrzení hesla",
@@ -790,7 +807,7 @@ const cs = {
       "Některá zvýraznění výskytů pojmů jsou skrytá.",
 
     "annotation.form.suggested-occurrence.message":
-      "Fráze není přiřazena žádnemu pojmu.",
+      "Fráze není přiřazena žádnému pojmu.",
     "annotation.form.invalid-occurrence.message":
       'Pojem "{term}" nebyl nalezen v slovníku.',
     "annotation.form.assigned-occurrence.termInfoLabel": "Informace o pojmu:",
@@ -852,7 +869,7 @@ const cs = {
     "properties.edit.new.iri": "Identifikátor",
     "properties.edit.new.label": "Název",
     "properties.edit.new.comment": "Popis",
-    "properties.edit.new.success": "Nový atribut byl úspešně vytvořen.",
+    "properties.edit.new.success": "Nový atribut byl úspěšně vytvořen.",
 
     "type.asset": "Záznam",
     "type.term": "Pojem",
