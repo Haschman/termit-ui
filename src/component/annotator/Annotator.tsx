@@ -703,10 +703,13 @@ export class Annotator extends React.Component<AnnotatorProps, AnnotatorState> {
               onCancel={this.onCloseTermDefinitionDialog}
               onSave={this.onSaveTermDefinition}
             />
+            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
             <div
               id="annotator"
               ref={this.containerElement}
               onMouseUp={this.handleMouseUp}
+              role="region"
+              aria-label="Annotator text content"
             >
               <AnnotatorContent
                 content={this.state.internalHtml}
