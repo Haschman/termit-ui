@@ -369,7 +369,6 @@ export class Terms extends React.Component<GlossaryTermsProps, TermsState> {
             fetchOptions={this.fetchOptions}
             isMenuOpen={true}
             multi={false}
-            autoFocus={!isDetailView}
             menuIsFloating={false}
             optionRenderer={createFullTermRenderer(
               this.props.terminalStates,

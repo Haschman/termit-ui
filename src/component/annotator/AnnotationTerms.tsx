@@ -96,7 +96,6 @@ export class AnnotationTerms extends React.Component<AnnotationTermsProps> {
           <AnnotatorTermsSelector
             onChange={this.handleChange}
             term={this.props.selectedTerm}
-            autoFocus={true}
           />
           <FormText>{i18n("annotation.term.select.placeholder")}</FormText>
         </FormGroup>

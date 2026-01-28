@@ -1,3 +1,10 @@
+#### Version 4.4.0
+
+- Added support for Personal Access Tokens - PATs.
+- Added support for Prometheus metrics and monitoring using Prometheus + Grafana. Removed Java Melody monitoring.
+- Improved accessibility of user interface (a11y).
+- Support removal of read-only vocabularies (with sufficient rights).
+
 #### Version 4.3.0
 
 - Provide access to document backups, support their download and restoration.
