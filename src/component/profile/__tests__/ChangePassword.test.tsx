@@ -102,12 +102,13 @@ describe("ChangePassword", () => {
     (currentPasswordINput.getDOMNode() as HTMLInputElement).value = "current";
     currentPasswordINput.simulate("change", currentPasswordINput);
     const newPasswordInput = wrapper.find('input[name="newPassword"]');
-    (newPasswordInput.getDOMNode() as HTMLInputElement).value = "new123";
+    (newPasswordInput.getDOMNode() as HTMLInputElement).value =
+      "new123Password";
     newPasswordInput.simulate("change", newPasswordInput);
     const confirmPasswordInput = wrapper.find('input[name="confirmPassword"]');
     (confirmPasswordInput.getDOMNode() as HTMLInputElement).value = different
       ? "diff"
-      : "new123";
+      : "new123Password";
     confirmPasswordInput.simulate("change", confirmPasswordInput);
   }
 

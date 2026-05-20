@@ -26,7 +26,7 @@ describe("RegistrationForm", () => {
     firstName: "a",
     lastName: "b",
     username: "c@example.org",
-    password: "d",
+    password: "ABCDefgh12345",
   };
 
   let register: (userData: UserAccountData) => Promise<AsyncFailureAction>;

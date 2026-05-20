@@ -25,8 +25,8 @@ describe("ResetPassword", () => {
     );
   });
 
-  const PASSWORD = "UltraSecretPassword";
-  const INVALID_PASSWORD_CONFIRMATION = "NotSoSecretPassword";
+  const PASSWORD = "UltraSecretPassword123";
+  const INVALID_PASSWORD_CONFIRMATION = "NotSoSecretPassword123";
   const EMPTY_STRING = "";
 
   it("renders submit button disabled when any field is empty", () => {
@@ -145,7 +145,7 @@ describe("ResetPassword", () => {
     expect(passwordInput().props().value).toEqual(PASSWORD);
 
     await act(async () => {
-      passwordInput().simulate("keyPress", { key: "Enter" });
+      passwordInput().simulate("keyDown", { key: "Enter" });
       await new Promise(process.nextTick);
       wrapper.update();
     });
@@ -171,7 +171,7 @@ describe("ResetPassword", () => {
     );
 
     await act(async () => {
-      passwordInput().simulate("keyPress", { key: "Enter" });
+      passwordInput().simulate("keyDown", { key: "Enter" });
       await new Promise(process.nextTick);
       wrapper.update();
     });
@@ -196,7 +196,7 @@ describe("ResetPassword", () => {
     changeInputValue(passwordConfirmationInput(), PASSWORD);
 
     await act(async () => {
-      passwordConfirmationInput().simulate("keyPress", { key: "Enter" });
+      passwordConfirmationInput().simulate("keyDown", { key: "Enter" });
       await new Promise(process.nextTick);
       wrapper.update();
     });
@@ -221,7 +221,7 @@ describe("ResetPassword", () => {
     changeInputValue(passwordConfirmationInput(), PASSWORD);
 
     await act(async () => {
-      passwordConfirmationInput().simulate("keyPress", { key: "Enter" });
+      passwordConfirmationInput().simulate("keyDown", { key: "Enter" });
       await new Promise(process.nextTick);
       wrapper.update();
     });
@@ -253,7 +253,7 @@ describe("ResetPassword", () => {
     changeInputValue(passwordConfirmationInput(), PASSWORD);
 
     await act(async () => {
-      passwordConfirmationInput().simulate("keyPress", { key: "Enter" });
+      passwordConfirmationInput().simulate("keyDown", { key: "Enter" });
       await new Promise(process.nextTick);
       wrapper.update();
     });
