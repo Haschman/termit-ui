@@ -4,7 +4,8 @@ import User, { EMPTY_USER } from "../model/User";
 import { getOidcIdentityStorageKey, isUsingOidcAuth } from "./OidcUtils";
 
 export default class SecurityUtils {
-  public static readonly PASSWORD_MIN_LENGTH = 6;
+  public static readonly PASSWORD_MIN_LENGTH = 8;
+  public static readonly PASSWORD_MAX_LENGTH = 64;
 
   public static saveToken(jwt: string): void {
     BrowserStorage.set(Constants.STORAGE_JWT_KEY, jwt);
@@ -50,6 +51,7 @@ export default class SecurityUtils {
   public static isPasswordValid(password: string) {
     return (
       password.length >= SecurityUtils.PASSWORD_MIN_LENGTH &&
+      password.length < SecurityUtils.PASSWORD_MAX_LENGTH &&
       /[a-z]/.test(password) &&
       /[A-Z]/.test(password) &&
       /\d/.test(password)
