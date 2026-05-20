@@ -12,8 +12,8 @@ import { injectIntl } from "react-intl";
 import VocabularyUtils from "../../util/VocabularyUtils";
 import ValidationResult, { Severity } from "../../model/form/ValidationResult";
 import Utils from "../../util/Utils";
-import CustomInput from "../misc/CustomInput";
 import SecurityUtils from "../../util/SecurityUtils";
+import EnhancedInput, { LabelDirection } from "../misc/EnhancedInput";
 
 interface RegistrationFormProps extends HasI18n {
   loading: boolean;
@@ -125,22 +125,24 @@ export class RegistrationForm extends React.Component<
           {this.renderAlert()}
           <Row>
             <Col md={6}>
-              <CustomInput
+              <EnhancedInput
                 type="text"
                 name="firstName"
                 autoComplete="given-name"
                 label={i18n("register.first-name")}
+                labelDirection={LabelDirection.vertical}
                 value={this.state.firstName}
                 onChange={this.onChange}
                 required={true}
               />
             </Col>
             <Col md={6}>
-              <CustomInput
+              <EnhancedInput
                 type="text"
                 name="lastName"
                 autoComplete="family-name"
                 label={i18n("register.last-name")}
+                labelDirection={LabelDirection.vertical}
                 value={this.state.lastName}
                 onChange={this.onChange}
                 required={true}
@@ -148,11 +150,12 @@ export class RegistrationForm extends React.Component<
             </Col>
           </Row>
           {this.renderUsername()}
-          <CustomInput
+          <EnhancedInput
             type="password"
             name="password"
             autoComplete="new-password"
             label={i18n("register.password")}
+            labelDirection={LabelDirection.vertical}
             onChange={this.onChange}
             value={this.state.password}
             required={true}
@@ -166,7 +169,6 @@ export class RegistrationForm extends React.Component<
             id="register-submit"
             className="btn-block"
             color="success"
-            size="sm"
             disabled={!this.isValid() || this.props.loading}
             onClick={this.onRegister}
           >
@@ -199,12 +201,13 @@ export class RegistrationForm extends React.Component<
     const i18n = this.props.i18n;
 
     return (
-      <CustomInput
+      <EnhancedInput
         type="text"
         name="username"
         autoComplete="username"
         label={i18n("register.username")}
         value={this.state.username}
+        labelDirection={LabelDirection.vertical}
         onChange={this.onUsernameChange}
         required={true}
         hint={i18n("register.username.help")}
@@ -223,7 +226,7 @@ export class RegistrationForm extends React.Component<
         );
 
     return (
-      <CustomInput
+      <EnhancedInput
         type="password"
         name="passwordConfirm"
         autoComplete="new-password"
@@ -231,6 +234,7 @@ export class RegistrationForm extends React.Component<
         onChange={this.onChange}
         onKeyPress={this.onKeyPress}
         value={this.state.passwordConfirm}
+        labelDirection={LabelDirection.vertical}
         required={true}
         validation={validation}
       />
