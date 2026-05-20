@@ -1,7 +1,6 @@
 import Users from "../Users";
 import Generator from "../../../../__tests__/environment/Generator";
 import { shallow } from "enzyme";
-import PasswordReset from "../PasswordReset";
 import * as UserActions from "../../../../action/AsyncUserActions";
 import UsersTable from "../UsersTable";
 import { mockUseI18n } from "../../../../__tests__/environment/IntlUtil";
@@ -79,77 +78,5 @@ describe("Users", () => {
     vi.spyOn(UserActions, "loadUsers");
     const wrapper = render();
     expect(wrapper.exists("#oidc-notice")).toBeTruthy();
-  });
-
-  describe("user unlocking", () => {
-    it("opens unlock user dialog and passes selected user to it on unlock click", () => {
-      const wrapper = render();
-
-      return Promise.resolve().then(() => {
-        expect(wrapper.find(PasswordReset).prop("open")).toBeFalsy();
-        wrapper.find(UsersTable).prop("unlock")(users[0]);
-        wrapper.update();
-        const passwordResetDialog = wrapper.find(PasswordReset);
-        expect(passwordResetDialog.prop("open")).toBeTruthy();
-        expect(passwordResetDialog.prop("user")).toEqual(users[0]);
-      });
-    });
-
-    it("closes unlock user dialog on unlock cancel", () => {
-      const wrapper = render();
-
-      return Promise.resolve().then(() => {
-        wrapper.find(UsersTable).prop("unlock")(users[0]);
-        wrapper.update();
-        expect(wrapper.find(PasswordReset).prop("open")).toBeTruthy();
-        wrapper.find(PasswordReset).prop("onCancel")();
-        wrapper.update();
-        expect(wrapper.find(PasswordReset).prop("open")).toBeFalsy();
-      });
-    });
-
-    it("invokes user unlock action on unlock submit", () => {
-      vi.spyOn(UserActions, "unlockUser");
-      const newPassword = "new_password";
-      const wrapper = render();
-
-      wrapper.find(UsersTable).prop("unlock")(users[0]);
-      wrapper.update();
-      wrapper.find(PasswordReset).prop("onSubmit")(newPassword);
-      return Promise.resolve().then(() => {
-        expect(UserActions.unlockUser).toHaveBeenCalledWith(
-          users[0],
-          newPassword
-        );
-      });
-    });
-
-    it("closes unlock user dialog when unlock action returns", () => {
-      vi.spyOn(UserActions, "unlockUser");
-      const newPassword = "new_password";
-      const wrapper = render();
-
-      wrapper.find(UsersTable).prop("unlock")(users[0]);
-      wrapper.update();
-      wrapper.find(PasswordReset).prop("onSubmit")(newPassword);
-      return Promise.resolve().then(() => {
-        wrapper.update();
-        expect(wrapper.find(PasswordReset).prop("open")).toBeFalsy();
-      });
-    });
-
-    it("reloads users after unlock action returns", () => {
-      vi.spyOn(UserActions, "unlockUser");
-      vi.spyOn(UserActions, "loadUsers");
-      const newPassword = "new_password";
-      const wrapper = render();
-
-      wrapper.find(UsersTable).prop("unlock")(users[0]);
-      wrapper.update();
-      wrapper.find(PasswordReset).prop("onSubmit")(newPassword);
-      return Promise.resolve().then(() => {
-        expect(UserActions.loadUsers).toHaveBeenCalled();
-      });
-    });
   });
 });

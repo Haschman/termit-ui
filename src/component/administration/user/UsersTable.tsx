@@ -32,8 +32,7 @@ interface UsersTableProps extends UserActions {
 }
 
 const UsersTable: React.FC<UsersTableProps> = (props) => {
-  const { users, currentUser, disable, enable, unlock, changeRole, readOnly } =
-    props;
+  const { users, currentUser, disable, enable, changeRole, readOnly } = props;
   const { i18n, locale } = useI18n();
   const availableRoles = useSelector(
     (state: TermItState) => state.configuration.roles
@@ -123,7 +122,6 @@ const UsersTable: React.FC<UsersTableProps> = (props) => {
               currentUser={currentUser}
               disable={disable}
               enable={enable}
-              unlock={unlock}
               changeRole={changeRole}
             />
           ),
@@ -139,7 +137,6 @@ const UsersTable: React.FC<UsersTableProps> = (props) => {
       availableRoles,
       disable,
       enable,
-      unlock,
       changeRole,
       currentUser,
       readOnly,
