@@ -107,6 +107,8 @@ const en = {
       "Invalid or expired password change link. Please request a password change again.",
 
     "createPassword.passwordsNotEqual": "Passwords don't match",
+    "createPassword.requirements":
+      "Password must be at least {minLength} characters long and contain at least one lowercase and uppercase letter and a number",
     "createPassword.mask": "Creating password...",
     "createPassword.title": "Create password",
     "createPassword.password": "New password",
@@ -190,9 +192,6 @@ const en = {
       "User {name} successfully unlocked.",
     "administration.users.status.action.changeRole.success":
       "The role was changed.",
-    "administration.users.unlock.title": "Unlock user {name}",
-    "administration.users.unlock.password": "New password",
-    "administration.users.unlock.passwordConfirm": "Confirm new password",
     "administration.users.action.changerole.tooltip":
       "Change role of the selected user",
     "administration.users.action.changerole": "Change role",

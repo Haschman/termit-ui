@@ -5,7 +5,6 @@ import ErrorInfo from "../../model/ErrorInfo";
 import Ajax, { params } from "../../util/Ajax";
 import Constants from "../../util/Constants";
 import { Alert, Button, Col, Form, Row } from "reactstrap";
-import EnhancedInput, { LabelDirection } from "../misc/EnhancedInput";
 import Mask from "../misc/Mask";
 import withI18n, { HasI18n } from "../hoc/withI18n";
 import AsyncActionStatus from "../../action/AsyncActionStatus";
@@ -13,6 +12,8 @@ import { injectIntl } from "react-intl";
 import VocabularyUtils from "../../util/VocabularyUtils";
 import ValidationResult, { Severity } from "../../model/form/ValidationResult";
 import Utils from "../../util/Utils";
+import CustomInput from "../misc/CustomInput";
+import SecurityUtils from "../../util/SecurityUtils";
 
 interface RegistrationFormProps extends HasI18n {
   loading: boolean;
@@ -70,22 +71,10 @@ export class RegistrationForm extends React.Component<
     }
   };
 
-  private validateFirstName() {
-    return this.state.firstName.trim().length === 0
-      ? ValidationResult.BLOCKER
-      : ValidationResult.VALID;
-  }
-
-  private validateLastName() {
-    return this.state.lastName.trim().length === 0
-      ? ValidationResult.BLOCKER
-      : ValidationResult.VALID;
-  }
-
   private validateUsername() {
     const { username, usernameExists } = this.state;
     if (username.trim().length === 0) {
-      return ValidationResult.BLOCKER;
+      return ValidationResult.VALID;
     }
     if (!Utils.isValidEmail(username)) {
       return new ValidationResult(
@@ -102,20 +91,13 @@ export class RegistrationForm extends React.Component<
     return ValidationResult.VALID;
   }
 
-  private validatePassword() {
-    return this.state.password.trim().length === 0 || !this.passwordsMatch()
-      ? ValidationResult.BLOCKER
-      : ValidationResult.VALID;
-  }
-
   private isValid(): boolean {
     return (
-      this.validateFirstName().severity === Severity.VALID &&
-      this.validateLastName().severity === Severity.VALID &&
+      this.state.firstName.trim().length > 0 &&
+      this.state.lastName.trim().length > 0 &&
       this.validateUsername().severity === Severity.VALID &&
-      this.state.password.trim().length > 0 &&
-      this.passwordsMatch() &&
-      !this.state.usernameExists
+      SecurityUtils.isPasswordValid(this.state.password) &&
+      this.passwordsMatch()
     );
   }
 
@@ -135,6 +117,7 @@ export class RegistrationForm extends React.Component<
 
   public render() {
     const i18n = this.props.i18n;
+    const formatMessage = this.props.formatMessage;
     return (
       <>
         {this.renderMask()}
@@ -142,40 +125,40 @@ export class RegistrationForm extends React.Component<
           {this.renderAlert()}
           <Row>
             <Col md={6}>
-              <EnhancedInput
+              <CustomInput
                 type="text"
                 name="firstName"
                 autoComplete="given-name"
                 label={i18n("register.first-name")}
-                labelDirection={LabelDirection.vertical}
                 value={this.state.firstName}
                 onChange={this.onChange}
-                validation={this.validateFirstName()}
+                required={true}
               />
             </Col>
             <Col md={6}>
-              <EnhancedInput
+              <CustomInput
                 type="text"
                 name="lastName"
                 autoComplete="family-name"
                 label={i18n("register.last-name")}
-                labelDirection={LabelDirection.vertical}
                 value={this.state.lastName}
                 onChange={this.onChange}
-                validation={this.validateLastName()}
+                required={true}
               />
             </Col>
           </Row>
           {this.renderUsername()}
-          <EnhancedInput
+          <CustomInput
             type="password"
             name="password"
             autoComplete="new-password"
             label={i18n("register.password")}
-            labelDirection={LabelDirection.vertical}
             onChange={this.onChange}
             value={this.state.password}
-            validation={this.validatePassword()}
+            required={true}
+            hint={formatMessage("createPassword.requirements", {
+              minLength: SecurityUtils.PASSWORD_MIN_LENGTH,
+            })}
           />
 
           {this.renderPasswordConfirm()}
@@ -216,14 +199,14 @@ export class RegistrationForm extends React.Component<
     const i18n = this.props.i18n;
 
     return (
-      <EnhancedInput
+      <CustomInput
         type="text"
         name="username"
         autoComplete="username"
         label={i18n("register.username")}
-        labelDirection={LabelDirection.vertical}
         value={this.state.username}
         onChange={this.onUsernameChange}
+        required={true}
         hint={i18n("register.username.help")}
         validation={this.validateUsername()}
       />
@@ -240,15 +223,15 @@ export class RegistrationForm extends React.Component<
         );
 
     return (
-      <EnhancedInput
+      <CustomInput
         type="password"
         name="passwordConfirm"
         autoComplete="new-password"
-        labelDirection={LabelDirection.vertical}
         label={this.props.i18n("register.password-confirm")}
         onChange={this.onChange}
         onKeyPress={this.onKeyPress}
         value={this.state.passwordConfirm}
+        required={true}
         validation={validation}
       />
     );

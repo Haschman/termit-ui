@@ -100,6 +100,8 @@ const de = {
     "resetPassword.invalidToken":
       "Ungültiger oder abgelaufener Link zur Passwortänderung. ",
     "createPassword.passwordsNotEqual": "Passwörter stimmen nicht überein",
+    "createPassword.requirements":
+      "Passwort muss mindestens {minLength} Zeichen lang sein und mindestens ein kleines und ein großes Buchstaben und eine Nummer enthalten.",
     "createPassword.mask": "Passwort erstellen...",
     "createPassword.title": "Passwort erstellen",
     "createPassword.password": "Neues Passwort",
@@ -190,9 +192,6 @@ const de = {
       "Benutzer {name} wurde erfolgreich entsperrt.",
     "administration.users.status.action.changeRole.success":
       "Die Rolle des Benutzers wurde geändert.",
-    "administration.users.unlock.title": "Benutzer {name} entsperren",
-    "administration.users.unlock.password": "Neues Passwort",
-    "administration.users.unlock.passwordConfirm": "Neues Passwort bestätigen",
     "administration.users.action.changerole.tooltip":
       "Rolle des ausgewählten Benutzers ändern",
     "administration.users.action.changerole": "Rolle des Benutzers ändern",

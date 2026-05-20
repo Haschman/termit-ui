@@ -109,6 +109,8 @@ const cs = {
       "Neplatný nebo expirovaný odkaz pro změnu hesla. Zažádejte o změnu hesla znovu.",
 
     "createPassword.passwordsNotEqual": "Heslo a jeho potvrzení se neshodují.",
+    "createPassword.requirements":
+      "Heslo musí být alespoň {minLength} znaků dlouhé a obsahovat alespoň jedno malé a velké písmeno a číslici",
     "createPassword.mask": "Vytvářím heslo...",
     "createPassword.title": "Vytvoření hesla",
     "createPassword.password": "Nové heslo",
@@ -199,9 +201,6 @@ const cs = {
       "Uživatel {name} odblokován.",
     "administration.users.status.action.changeRole.success":
       "Role byla změněna.",
-    "administration.users.unlock.title": "Odblokovat uživatele {name}",
-    "administration.users.unlock.password": "Nové heslo",
-    "administration.users.unlock.passwordConfirm": "Potvrzení nového hesla",
     "administration.users.action.changerole.tooltip":
       "Změnit roli vybraného uživatele",
     "administration.users.action.changerole": "Změnit roli",
