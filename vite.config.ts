@@ -2,6 +2,7 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
+import visualizer from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
@@ -9,6 +10,7 @@ export default defineConfig({
     svgr({
       include: "**/*.svg?react",
     }),
+    visualizer({ open: true, gzipSize: true }),
   ],
   base: "./",
   build: {

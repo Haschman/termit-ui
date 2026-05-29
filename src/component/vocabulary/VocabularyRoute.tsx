@@ -2,14 +2,19 @@ import * as React from "react";
 import { Switch } from "react-router";
 import Routes from "../../util/Routes";
 import DynamicBreadcrumbRoute from "../breadcrumb/DynamicBreadcrumbRoute";
-import TermDetail from "../term/TermDetail";
 import BreadcrumbRoute from "../breadcrumb/BreadcrumbRoute";
-import CreateTerm from "../term/CreateTerm";
-import VocabularySummary from "./VocabularySummary";
 import { useI18n } from "../hook/useI18n";
 import Route from "../misc/Route";
-import ResourceFileDetail from "../resource/ResourceFileDetail";
-import VocabularySheetViewPage from "./sheet/VocabularySheetViewPage";
+
+const VocabularySheetViewPage = React.lazy(
+  () => import("./sheet/VocabularySheetViewPage")
+);
+const CreateTerm = React.lazy(() => import("../term/CreateTerm"));
+const TermDetail = React.lazy(() => import("../term/TermDetail"));
+const VocabularySummary = React.lazy(() => import("./VocabularySummary"));
+const ResourceFileDetail = React.lazy(
+  () => import("../resource/ResourceFileDetail")
+);
 
 const VocabularyRoute: React.FC = () => {
   const { i18n } = useI18n();
