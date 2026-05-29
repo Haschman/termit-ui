@@ -6,7 +6,11 @@ import { ThunkDispatch } from "../../util/Types";
 import ActionType, { AsyncAction } from "../ActionType";
 import SearchResult from "../../model/search/SearchResult";
 import Vocabulary2 from "../../util/VocabularyUtils";
-import { search, updateSearchFilterAndRunSearch } from "../SearchActions";
+import {
+  search,
+  searchEverything,
+  updateSearchFilterAndRunSearch,
+} from "../SearchActions";
 import { vi } from "vitest";
 
 vi.mock("../../util/Routing");
@@ -78,6 +82,54 @@ describe("SearchActions", () => {
         .getActions()
         .filter((a) => a.type === ActionType.SEARCH_RESULT);
       expect(actions.length).toEqual(1);
+    });
+  });
+
+  describe("searchEverything", () => {
+    function stateWithListener(searchString: string = "test"): TermItState {
+      const s = new TermItState();
+      s.searchListenerCount = 1;
+      s.searchQuery.searchString = searchString;
+      return s;
+    }
+
+    it("defers concurrent search invocations and re-runs once after the in-flight one finishes", async () => {
+      const results = require("../../rest-mock/searchResults");
+      // Resolve the first request only after we trigger a second one
+      let resolveFirst: (val: any) => void = () => undefined;
+      Ajax.get = vi
+        .fn()
+        .mockImplementationOnce(
+          () => new Promise((resolve) => (resolveFirst = resolve))
+        )
+        .mockImplementationOnce(() => Promise.resolve(results));
+
+      store = mockStore(stateWithListener("first"));
+
+      const firstPromise = (store.dispatch as ThunkDispatch)(
+        searchEverything()
+      );
+      // Second call while the first is in-flight — should be deferred, not sent
+      (store.dispatch as ThunkDispatch)(searchEverything());
+      (store.dispatch as ThunkDispatch)(searchEverything());
+
+      expect((Ajax.get as any).mock.calls.length).toEqual(1);
+
+      // Now let the first one finish — this should trigger exactly one re-run
+      resolveFirst([]);
+      await firstPromise;
+      // Allow the deferred re-run's promise chain to resolve
+      await new Promise((r) => setTimeout(r, 0));
+
+      expect((Ajax.get as any).mock.calls.length).toEqual(2);
+    });
+
+    it("does not re-run when no concurrent invocation happened", async () => {
+      Ajax.get = vi.fn().mockImplementation(() => Promise.resolve([]));
+      store = mockStore(stateWithListener());
+      await (store.dispatch as ThunkDispatch)(searchEverything());
+      await new Promise((r) => setTimeout(r, 0));
+      expect((Ajax.get as any).mock.calls.length).toEqual(1);
     });
   });
 

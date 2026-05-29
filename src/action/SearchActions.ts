@@ -103,20 +103,65 @@ export function updateSearchFilterAndRunSearch(
 }
 
 /**
+ * Tracks an in-flight search dispatched via {@link searchEverything}. When a search is requested while
+ * another one is already running, the new one is deferred and re-dispatched
+ * once the running one finishes, using the latest query in the state.
+ */
+let searchInFlight: Promise<any> | null = null;
+let pendingRerun = false;
+
+/**
  * Start searching according the search criteria.
  * No search is triggered if nobody listens for the results.
+ *
+ * If a search is already in progress, the call is deferred: the most recent
+ * query in the state will be re-dispatched once the running search finishes.
+ * Any intermediate calls in between are coalesced into that single re-run.
  */
 export function searchEverything() {
   return (dispatch: ThunkDispatch, getState: () => TermItState) => {
+    if (searchInFlight) {
+      // A search is already running; remember that we want to re-run once it
+      // finishes. The re-run will use whatever query is in the state at that
+      // point, so intermediate calls naturally coalesce.
+      pendingRerun = true;
+      return searchInFlight;
+    }
+
     dispatch({ type: ActionType.SEARCH_START });
     const state: TermItState = getState();
     if (
       state.searchListenerCount > 0 &&
       !state.searchQuery.isSearchStringBlank()
     ) {
-      return dispatch(
-        search(state.searchQuery.searchString, state.searchQuery.language, true)
+      const p = (
+        dispatch(
+          search(
+            state.searchQuery.searchString,
+            state.searchQuery.language,
+            true
+          )
+        ) as unknown as Promise<any>
+      ).then(
+        (result) => {
+          searchInFlight = null;
+          if (pendingRerun) {
+            pendingRerun = false;
+            dispatch(searchEverything());
+          }
+          return result;
+        },
+        (error) => {
+          searchInFlight = null;
+          if (pendingRerun) {
+            pendingRerun = false;
+            dispatch(searchEverything());
+          }
+          throw error;
+        }
       );
+      searchInFlight = p;
+      return p;
     } else {
       dispatch({ type: ActionType.SEARCH_FINISH });
       return Promise.resolve();
