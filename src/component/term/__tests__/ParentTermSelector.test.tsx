@@ -11,7 +11,7 @@ import { IntelligentTreeSelect } from "intelligent-tree-select";
 import Vocabulary from "../../../model/Vocabulary";
 import { langString } from "../../../model/MultilingualString";
 import { TermFetchParams } from "../../../util/Types";
-import { noop } from "lodash";
+import noop from "lodash/noop";
 import type { Mock } from "vitest";
 
 describe("ParentTermSelector", () => {

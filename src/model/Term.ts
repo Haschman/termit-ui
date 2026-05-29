@@ -13,7 +13,7 @@ import WithUnmappedProperties, {
   stringifyPropertyValue,
 } from "./WithUnmappedProperties";
 import VocabularyUtils from "../util/VocabularyUtils";
-import _ from "lodash";
+import isEqual from "lodash/isEqual";
 import {
   BASE_CONTEXT as BASE_OCCURRENCE_CONTEXT,
   TermOccurrenceData,
@@ -205,7 +205,7 @@ export default class Term
 
   private resolveParent(parents: Term[]) {
     const sameVocabulary = parents.find((t) =>
-      _.isEqual(t.vocabulary, this.vocabulary)
+      isEqual(t.vocabulary, this.vocabulary)
     );
     if (sameVocabulary) {
       return sameVocabulary.iri;
