@@ -74,6 +74,7 @@ interface TermsState {
   includeImported: boolean;
   disableIncludeImportedToggle: boolean;
   showTerminalTerms: boolean;
+  selectedTermLoaded: boolean;
 }
 
 const RELEVANT_ACTION_TYPES = [
@@ -98,6 +99,7 @@ export class Terms extends React.Component<GlossaryTermsProps, TermsState> {
       includeImported: includeImported || false,
       disableIncludeImportedToggle: props.isDetailView || false,
       showTerminalTerms: false,
+      selectedTermLoaded: false,
     };
   }
 
@@ -111,6 +113,7 @@ export class Terms extends React.Component<GlossaryTermsProps, TermsState> {
       this.treeComponent.current.resetOptions();
       this.props.consumeNotification(matchingNotification);
     } else if (this.shouldReloadTerms(prevProps)) {
+      this.setState({ selectedTermLoaded: false });
       this.treeComponent.current?.resetOptions();
     }
     if (prevProps.locale !== this.props.locale) {
@@ -160,6 +163,12 @@ export class Terms extends React.Component<GlossaryTermsProps, TermsState> {
           ...fetchOptions,
           includeImported: this.state.includeImported,
           flatList: this.props.flatList,
+          includeTerms:
+            !this.state.selectedTermLoaded &&
+            this.props.isDetailView &&
+            this.props.selectedTerms
+              ? [this.props.selectedTerms.iri]
+              : undefined,
         },
         vocabularyIri
       )
@@ -387,9 +396,8 @@ export class Terms extends React.Component<GlossaryTermsProps, TermsState> {
             ref={this.treeComponent}
             isClearable={!isDetailView}
             onChange={this.onTermSelect}
-            value={
-              this.props.selectedTerms ? this.props.selectedTerms.iri : null
-            }
+            value={this.props.selectedTerms}
+            valueIsControlled={false}
             fetchOptions={this.fetchOptions}
             isMenuOpen={true}
             multi={false}
