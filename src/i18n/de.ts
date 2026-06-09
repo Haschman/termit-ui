@@ -100,6 +100,8 @@ const de = {
     "resetPassword.invalidToken":
       "Ungültiger oder abgelaufener Link zur Passwortänderung. ",
     "createPassword.passwordsNotEqual": "Passwörter stimmen nicht überein",
+    "createPassword.requirements":
+      "Passwort muss mindestens {minLength} Zeichen lang sein und mindestens ein kleines und ein großes Buchstaben und eine Nummer enthalten.",
     "createPassword.mask": "Passwort erstellen...",
     "createPassword.title": "Passwort erstellen",
     "createPassword.password": "Neues Passwort",
@@ -190,9 +192,6 @@ const de = {
       "Benutzer {name} wurde erfolgreich entsperrt.",
     "administration.users.status.action.changeRole.success":
       "Die Rolle des Benutzers wurde geändert.",
-    "administration.users.unlock.title": "Benutzer {name} entsperren",
-    "administration.users.unlock.password": "Neues Passwort",
-    "administration.users.unlock.passwordConfirm": "Neues Passwort bestätigen",
     "administration.users.action.changerole.tooltip":
       "Rolle des ausgewählten Benutzers ändern",
     "administration.users.action.changerole": "Rolle des Benutzers ändern",
@@ -207,7 +206,6 @@ const de = {
     "administration.users.create.created":
       'Benutzer "{name}" erfolgreich erstellt.',
     "administration.users.you": "Das bist du",
-    "administration.users.types.admin": "Dieser Benutzer ist ein Administrator",
     "administration.users.oidc":
       "Zur Verwaltung der Benutzer wird ein externer Authentifizierungsdienst verwendet.",
     "administration.users.create.password-toggle.user":
@@ -617,6 +615,29 @@ const de = {
     "glossary.showFlatList": "Flache Liste",
     "glossary.showFlatList.help":
       "Begriffe werden in einer flachen Liste angezeigt, die die hierarchischen Beziehungen zwischen Begriffen nicht zeigt.",
+    "glossary.table.filter.placeholder": "Begriffe filtern",
+    "glossary.table.columns.button": "Spalten",
+    "glossary.table.column.label": "Bezeichnung",
+    "glossary.table.column.status": "Status",
+    "glossary.table.column.vocabulary": "Vokabular",
+    "glossary.table.column.notation": "Notation",
+    "glossary.table.column.definition": "Definition",
+    "glossary.table.openTerm": "Begriffsdetail öffnen",
+    "glossary.table.empty": "Keine Begriffe gefunden.",
+    "glossary.table.loadError": "Begriffe konnten nicht geladen werden.",
+    "glossary.table.total": "{count, number} Begriffe",
+    "glossary.table.loaded": "Angezeigt: {count, number}",
+    "glossary.table.loadingMore": "Weitere Begriffe werden geladen...",
+    "glossary.table.cell.expand": "Zelle erweitern",
+    "glossary.table.cell.collapse": "Zelle einklappen",
+    "glossary.table.endReached": "Alle Begriffe sind geladen.",
+    "glossary.table.workspace.title": "Tabellenansicht",
+    "glossary.table.workspace.breadcrumb": "Tabellenansicht",
+    "glossary.table.workspace.open": "Tabellenansicht öffnen",
+    "glossary.table.workspace.open.help":
+      "Öffnet eine dedizierte Tabellenansicht für Massenbearbeitung und Metadaten-Übersicht.",
+    "glossary.table.workspace.back": "Zurück zum Vokabular",
+    "glossary.table.workspace.back.help": "Zurück zur Vokabular-Detailansicht.",
     "glossary.unusedTerm.tooltip":
       "Begriff, der in einem Dokument nicht vorkommt",
     "glossary.createTerm": "Neuen Begriff erstellen",

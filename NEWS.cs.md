@@ -1,3 +1,8 @@
+#### Verze 4.5.1
+
+- Přidán tabulkový pohled na slovník.
+- Bezpečnostní aktualizace závislostí.
+
 #### Verze 4.5.0
 
 - Fulltextové vyhledávání integrováno s fasetovým vyhledáváním.

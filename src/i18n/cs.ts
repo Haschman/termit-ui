@@ -109,6 +109,8 @@ const cs = {
       "Neplatný nebo expirovaný odkaz pro změnu hesla. Zažádejte o změnu hesla znovu.",
 
     "createPassword.passwordsNotEqual": "Heslo a jeho potvrzení se neshodují.",
+    "createPassword.requirements":
+      "Heslo musí být alespoň {minLength} znaků dlouhé a obsahovat alespoň jedno malé a velké písmeno a číslici",
     "createPassword.mask": "Vytvářím heslo...",
     "createPassword.title": "Vytvoření hesla",
     "createPassword.password": "Nové heslo",
@@ -199,9 +201,6 @@ const cs = {
       "Uživatel {name} odblokován.",
     "administration.users.status.action.changeRole.success":
       "Role byla změněna.",
-    "administration.users.unlock.title": "Odblokovat uživatele {name}",
-    "administration.users.unlock.password": "Nové heslo",
-    "administration.users.unlock.passwordConfirm": "Potvrzení nového hesla",
     "administration.users.action.changerole.tooltip":
       "Změnit roli vybraného uživatele",
     "administration.users.action.changerole": "Změnit roli",
@@ -216,7 +215,6 @@ const cs = {
     "administration.users.create.created":
       'Uživatel "{name}" úspěšně vytvořen.',
     "administration.users.you": "Toto je Váš účet",
-    "administration.users.types.admin": "Tento uživatel je administrátor",
     "administration.users.oidc":
       "Pro správu uživatelů je využívána externí autentizační služba.",
     "administration.users.create.password-toggle.user":
@@ -659,6 +657,29 @@ const cs = {
     "glossary.showFlatList": "Seznam",
     "glossary.showFlatList.help":
       "Pojmy jsou zobrazeny v plochém seznamu, který nezobrazuje hierarchické vztahy mezi pojmy.",
+    "glossary.table.filter.placeholder": "Filtrovat pojmy",
+    "glossary.table.columns.button": "Sloupce",
+    "glossary.table.column.label": "Název",
+    "glossary.table.column.status": "Stav",
+    "glossary.table.column.vocabulary": "Slovník",
+    "glossary.table.column.notation": "Notace",
+    "glossary.table.column.definition": "Definice",
+    "glossary.table.openTerm": "Otevřít detail pojmu",
+    "glossary.table.empty": "Nebyly nalezeny žádné pojmy.",
+    "glossary.table.loadError": "Pojmy se nepodařilo načíst.",
+    "glossary.table.total": "{count, number} pojmů",
+    "glossary.table.loaded": "Zobrazeno: {count, number}",
+    "glossary.table.loadingMore": "Načítají se další pojmy...",
+    "glossary.table.cell.expand": "Rozbalit buňku",
+    "glossary.table.cell.collapse": "Sbalit buňku",
+    "glossary.table.endReached": "Všechny pojmy jsou načtené.",
+    "glossary.table.workspace.title": "Tabulkové zobrazení",
+    "glossary.table.workspace.breadcrumb": "Tabulkové zobrazení",
+    "glossary.table.workspace.open": "Otevřít tabulkové zobrazení",
+    "glossary.table.workspace.open.help":
+      "Otevře oddělené tabulkové zobrazení pojmů pro hromadné úpravy a zobrazení metadat.",
+    "glossary.table.workspace.back": "Zpět na detail slovníku",
+    "glossary.table.workspace.back.help": "Vrátí vás na detail slovníku.",
     "glossary.unusedTerm.tooltip": "Není znám výskyt pojmu v dokumentu.",
     "glossary.createTerm": "Vytvořit nový pojem",
     "glossary.createTerm.tooltip": "Vytvořit nový pojem ve slovníku",

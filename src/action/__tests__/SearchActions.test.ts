@@ -6,7 +6,11 @@ import { ThunkDispatch } from "../../util/Types";
 import ActionType, { AsyncAction } from "../ActionType";
 import SearchResult from "../../model/search/SearchResult";
 import Vocabulary2 from "../../util/VocabularyUtils";
-import { search, updateSearchFilterAndRunSearch } from "../SearchActions";
+import {
+  search,
+  searchEverything,
+  updateSearchFilterAndRunSearch,
+} from "../SearchActions";
 import { vi } from "vitest";
 
 vi.mock("../../util/Routing");
@@ -16,6 +20,8 @@ vi.mock(import("../../util/Ajax"), async (importOriginal) => {
     ...actual,
     default: {
       get: vi.fn(),
+      getResponse: vi.fn(),
+      post: vi.fn(),
     } as any,
   };
 });
@@ -31,9 +37,11 @@ describe("SearchActions", () => {
 
   describe("search", () => {
     it("emits search request action with ignore loading switch", () => {
-      Ajax.get = vi.fn().mockImplementation(() => Promise.resolve([]));
+      Ajax.getResponse = vi
+        .fn()
+        .mockImplementation(() => Promise.resolve({ data: [], headers: {} }));
       return Promise.resolve(
-        (store.dispatch as ThunkDispatch)(search("test", "", true))
+        (store.dispatch as ThunkDispatch)(search("test", ""))
       ).then(() => {
         const searchRequestAction: AsyncAction = store.getActions()[0];
         expect(searchRequestAction.ignoreLoading).toBeTruthy();
@@ -42,9 +50,13 @@ describe("SearchActions", () => {
 
     it("compacts incoming JSON-LD data using SearchResult context", () => {
       const results = require("../../rest-mock/searchResults");
-      Ajax.get = vi.fn().mockImplementation(() => Promise.resolve(results));
+      Ajax.getResponse = vi
+        .fn()
+        .mockImplementation(() =>
+          Promise.resolve({ data: results, headers: {} })
+        );
       return Promise.resolve(
-        (store.dispatch as ThunkDispatch)(search("test", "", true))
+        (store.dispatch as ThunkDispatch)(search("test", ""))
       ).then(() => {
         const action = store.getActions()[1];
         const result = action.searchResults;
@@ -61,23 +73,77 @@ describe("SearchActions", () => {
 
     it("discards results of earlier search when they arrive after the most recent search", async () => {
       const results = require("../../rest-mock/searchResults");
-      Ajax.get = vi
+      Ajax.getResponse = vi
         .fn()
         .mockImplementationOnce(
           () =>
             new Promise((resolve: (val: any) => void) =>
-              setTimeout(() => resolve([]), 1000)
+              setTimeout(() => resolve({ data: [], headers: {} }), 1000)
             )
         )
-        .mockImplementationOnce(() => Promise.resolve(results));
+        .mockImplementationOnce(() =>
+          Promise.resolve({ data: results, headers: {} })
+        );
       await Promise.all([
-        (store.dispatch as ThunkDispatch)(search("t", "en", true)),
-        (store.dispatch as ThunkDispatch)(search("test", "en", true)),
+        (store.dispatch as ThunkDispatch)(search("t", "en")),
+        (store.dispatch as ThunkDispatch)(search("test", "en")),
       ]);
       const actions = store
         .getActions()
         .filter((a) => a.type === ActionType.SEARCH_RESULT);
       expect(actions.length).toEqual(1);
+    });
+  });
+
+  describe("searchEverything", () => {
+    function stateWithListener(searchString: string = "test"): TermItState {
+      const s = new TermItState();
+      s.searchListenerCount = 1;
+      s.searchQuery.searchString = searchString;
+      return s;
+    }
+
+    it("defers concurrent search invocations and re-runs once after the in-flight one finishes", async () => {
+      const results = require("../../rest-mock/searchResults");
+      // Resolve the first request only after we trigger a second one
+      let resolveFirst: (val: any) => void = () => undefined;
+      Ajax.getResponse = vi
+        .fn()
+        .mockImplementationOnce(
+          () => new Promise((resolve) => (resolveFirst = resolve))
+        )
+        .mockImplementationOnce(() =>
+          Promise.resolve({ data: results, headers: {} })
+        );
+
+      store = mockStore(stateWithListener("first"));
+
+      const firstPromise = (store.dispatch as ThunkDispatch)(
+        searchEverything()
+      );
+      // Second call while the first is in-flight — should be deferred, not sent
+      (store.dispatch as ThunkDispatch)(searchEverything());
+      (store.dispatch as ThunkDispatch)(searchEverything());
+
+      expect((Ajax.getResponse as any).mock.calls.length).toEqual(1);
+
+      // Now let the first one finish — this should trigger exactly one re-run
+      resolveFirst({ data: [], headers: {} });
+      await firstPromise;
+      // Allow the deferred re-run's promise chain to resolve
+      await new Promise((r) => setTimeout(r, 0));
+
+      expect((Ajax.getResponse as any).mock.calls.length).toEqual(2);
+    });
+
+    it("does not re-run when no concurrent invocation happened", async () => {
+      Ajax.getResponse = vi
+        .fn()
+        .mockImplementation(() => Promise.resolve({ data: [], headers: {} }));
+      store = mockStore(stateWithListener());
+      await (store.dispatch as ThunkDispatch)(searchEverything());
+      await new Promise((r) => setTimeout(r, 0));
+      expect((Ajax.getResponse as any).mock.calls.length).toEqual(1);
     });
   });
 

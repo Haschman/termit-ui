@@ -107,6 +107,8 @@ const en = {
       "Invalid or expired password change link. Please request a password change again.",
 
     "createPassword.passwordsNotEqual": "Passwords don't match",
+    "createPassword.requirements":
+      "Password must be at least {minLength} characters long and contain at least one lowercase and uppercase letter and a number",
     "createPassword.mask": "Creating password...",
     "createPassword.title": "Create password",
     "createPassword.password": "New password",
@@ -190,9 +192,6 @@ const en = {
       "User {name} successfully unlocked.",
     "administration.users.status.action.changeRole.success":
       "The role was changed.",
-    "administration.users.unlock.title": "Unlock user {name}",
-    "administration.users.unlock.password": "New password",
-    "administration.users.unlock.passwordConfirm": "Confirm new password",
     "administration.users.action.changerole.tooltip":
       "Change role of the selected user",
     "administration.users.action.changerole": "Change role",
@@ -206,7 +205,6 @@ const en = {
     "administration.users.create.created":
       'User "{name}" successfully created.',
     "administration.users.you": "This is you",
-    "administration.users.types.admin": "This user is an administrator",
     "administration.users.oidc":
       "An external authentication service is used to manage users.",
     "administration.users.create.password-toggle.user": "Send activation email",
@@ -652,6 +650,29 @@ const en = {
     "glossary.showFlatList": "Flat list",
     "glossary.showFlatList.help":
       "Terms are displayed in a flat list that does not show the hierarchical relationships between terms.",
+    "glossary.table.filter.placeholder": "Filter terms",
+    "glossary.table.columns.button": "Columns",
+    "glossary.table.column.label": "Label",
+    "glossary.table.column.status": "State",
+    "glossary.table.column.vocabulary": "Vocabulary",
+    "glossary.table.column.notation": "Notation",
+    "glossary.table.column.definition": "Definition",
+    "glossary.table.openTerm": "Open term detail",
+    "glossary.table.empty": "No terms found.",
+    "glossary.table.loadError": "Unable to load terms.",
+    "glossary.table.total": "{count, number} terms",
+    "glossary.table.loaded": "Displayed: {count, number}",
+    "glossary.table.loadingMore": "Loading more terms...",
+    "glossary.table.cell.expand": "Expand cell",
+    "glossary.table.cell.collapse": "Collapse cell",
+    "glossary.table.endReached": "All terms loaded.",
+    "glossary.table.workspace.title": "Sheet view",
+    "glossary.table.workspace.breadcrumb": "Sheet view",
+    "glossary.table.workspace.open": "Open sheet view",
+    "glossary.table.workspace.open.help":
+      "Open the dedicated sheet view for bulk updates and metadata overview.",
+    "glossary.table.workspace.back": "Back to vocabulary",
+    "glossary.table.workspace.back.help": "Return to vocabulary detail view.",
     "glossary.unusedTerm.tooltip": "Term not occurring in a document",
     "glossary.createTerm": "Create new term",
     "glossary.createTerm.tooltip": "Create new vocabulary's term",
